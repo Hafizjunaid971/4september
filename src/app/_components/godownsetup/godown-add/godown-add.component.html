@@ -1,0 +1,137 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #GodownSetupAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Godown Setup</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Godown Setup</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Godown Setup</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Godown Setup</h3>
+                    </div>
+
+                    <div class="form-group margin-top-10">
+
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control input-group-lg" required name="Name" type="text" title="Enter Name" [(ngModel)]="GodownSetup.GDName" placeholder="Enter Name" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Godown City</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="GDCity" class="form-control input-group-lg" type="text" title="Enter Godown City" [(ngModel)]="GodownSetup.GDCity" placeholder="Enter ACity" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Godown Area</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="GDArea" class="form-control input-group-lg" type="text" title="Enter Godown Area" [(ngModel)]="GodownSetup.GDArea" placeholder="Enter Area" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Godown Address</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="GDAddress" class="form-control input-group-lg" type="text" title="Enter Godown Address" [(ngModel)]="GodownSetup.GDAddress" placeholder="Enter Address" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Contact Person Name 1</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="ContactPersonName1" class="form-control input-group-lg" type="text" title="Enter Contact Person Name 1" [(ngModel)]="GodownSetup.ContactPersonName1" placeholder="Enter Contact name 1" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Contact 1</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Contact1" class="form-control input-group-lg" type="text" title="Enter Contact 1" [(ngModel)]="GodownSetup.Contact1" placeholder="Enter Contact 1" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+
+                        <!-- <label class="col-sm-2 col-form-label">Contact Person Name 2</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="ContactPersonName2" class="form-control input-group-lg" type="text" title="Enter Contact Person Name 2" [(ngModel)]="GodownSetup.ContactPersonName2" placeholder="Enter Contact person name 2" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Contact 2</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Contact2" class="form-control input-group-lg" type="text" title="Enter Contact 2" [(ngModel)]="GodownSetup.Contact2" placeholder="Enter Conatct 2" [readonly]="DeleteMode || ViewMode" />
+                        </div> -->
+
+
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="GodownSetup.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="GodownSetup.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="GodownSetup.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="GodownSetup.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!GodownSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(GodownSetup)">
+                        <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!GodownSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(GodownSetup)">
+                        <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!GodownSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(GodownSetup)">
+                        <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                    </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                        <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                    </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -1,0 +1,157 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #StockListAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Inventory Stock List
+                        </h3>
+                    </div>
+                                                        <!-- Add New Inventory Stock List -->
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Inventory Stock List</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Inventory Stock List</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Inventory Stock List
+                        </h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+                        <label class="col-sm-2 col-form-label">Lot Number</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control input-group-lg"  required=true name="LOTNumber" type="text" title="Enter Lot Number" [(ngModel)]="AddInventoryStock.LOTNumber" placeholder="Enter LotNumber" [readonly]="DeleteMode ||
+                            ViewMode || EditMode" />
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">Godown name</label>
+                        <div class="col-sm-4">
+                            <ng-select [items]="godownList" [disabled]="DeleteMode || ViewMode || EditMode" name="GDName" bindLabel="GDName" [(ngModel)]="AddInventoryStock.GodownSetup" required="true" placeholder="Select Godpwn" >
+                            </ng-select>
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">Product/ Grade</label>
+                        <div class="col-sm-4">
+                            <ng-select [items]="addgradeList" [disabled]="DeleteMode || ViewMode || EditMode" name="GradeName" bindLabel="GradeName" [(ngModel)]="AddInventoryStock.AddGrade" required="true" placeholder="Select Product" >
+                            </ng-select>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Quantity</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control input-group-lg"  required=true name="Quantity" type="number" title="Enter Lot Number" [(ngModel)]="AddInventoryStock.Quantity" placeholder="Enter Quantity" [readonly]="DeleteMode ||
+                            ViewMode" />
+                        </div>
+
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">LC</th>
+                                        <th scope="col">BL</th>
+                                        <th scope="col">GD</th>
+                                        <th scope="col">Shiper Name</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td><input autocomplete="off" class="form-control" required=true name="IDStock" type="text" title="Enter I D Stock" [(ngModel)]="AddInventoryStock.IDStock" placeholder="Enter I D Stock" [readonly]="DeleteMode || ViewMode"
+                                            /></td>
+                                            <td><input autocomplete="off" class="form-control" required=true name="LCStock" type="text" title="Enter L C Stock" [(ngModel)]="AddInventoryStock.LCStock" placeholder="Enter L C Stock" [readonly]="DeleteMode || ViewMode"
+                                              /></td>
+                                        <td><input autocomplete="off" class="form-control" required=true name="BLStock" type="text" title="Enter B L Stock" [(ngModel)]="AddInventoryStock.BLStock" placeholder="Enter B L Stock" [readonly]="DeleteMode || ViewMode"
+                                            /></td>
+                                            <td><input autocomplete="off" class="form-control" required=true name="GDStock" type="text" title="Enter G D Stock" [(ngModel)]="AddInventoryStock.GDStock" placeholder="Enter G D Stock" [readonly]="DeleteMode || ViewMode"
+                                              /></td>
+                                              <td><input autocomplete="off" class="form-control" required=true name="ShiperName" type="text" title="Enter Shiper name" [(ngModel)]="AddInventoryStock.ShiperName" placeholder="Enter Shiper Name" [readonly]="DeleteMode || ViewMode"
+                                                /></td>
+                                           </tr>
+                                          </tbody>
+                                       </table>
+                                    </div>
+                                   </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="AddInventoryStock.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="AddInventoryStock.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="AddInventoryStock.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="AddInventoryStock.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!StockListAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(AddInventoryStock)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!StockListAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(AddInventoryStock)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!StockListAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(AddInventoryStock)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

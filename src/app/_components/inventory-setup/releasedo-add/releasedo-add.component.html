@@ -1,0 +1,556 @@
+<!-- <p>releasedo-add works!</p>
+<app-sidenav></app-sidenav>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Seriol Number">
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control input-group-lg" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Godown Name">
+                  </div>
+                   <div class="col-xs-3">
+                    <input type="text" class="form-control input-group-lg" id="searchTextId3" [(ngModel)]="searchText3" name="searchText3" placeholder="Search By Customer Name">
+                </div>
+                <div class="col-xs-3">
+                  <input type="text" class="form-control input-group-lg" id="searchTextId4" [(ngModel)]="searchText4" name="searchText4" placeholder="Search By Quantity">
+              </div>
+                </div>
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Agent DO Setup List</h3>
+                </div>
+                <div class="table-responsive-sm margin-top-25">
+                    <table class="table">
+                        <thead>
+                                <th>#</th>
+                                <th>S.NO</th>
+                                <th>Quantity</th>
+                                <th>Lot Number</th>
+                                <th>Grade</th>
+                                <th>Godown name</th>
+                                <th>Customer Name</th>
+                                <th>Agent Name</th>
+                                <th>DO Date</th>
+                                <th>Validity</th>
+                                <th>Action</th>
+                        </thead>
+                        <tbody *ngFor="let item of pagedItems | searchDOSETUPList: searchText | searchDOSETUPList2: searchText2 | searchDOSETUPList3: searchText3 | searchDOSETUPList4: searchText4; let i = index">
+
+                          <tr *ngIf="currentUser.UserId==item.AddInventoryStock.CreatedBy" >
+                               <td>{{i+1}}</td>
+                               <td>{{item.SNO}}</td>
+                               <td>{{item.Quantity}}</td>
+                               <td readonly>{{item.AddInventoryStock.LOTNumber}}</td>
+                               <td readonly>{{item.AddInventoryStock.AddGrade.GradeName}}</td>
+                              <td readonly>{{item.AddInventoryStock.GodownSetup.GDName}}</td>
+                              <td readonly>{{item.Customer.Name}}</td>
+                              <td readonly>{{item.AddInventoryStock.CreatedBy}}</td>
+                              <td readonly>{{item.DODate}}</td>
+                              <td readonly>{{item.Validity}}</td>
+                              <td>
+                              <i class="fa fa-eye view" (click)="View(item)"></i> |
+                              <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                              <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td>
+                              </tr>
+                              </tbody>
+                              </table>
+                              </div>
+
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+<!-- yahn se rao ne add keraya -->
+
+
+
+
+<!-- 21 september -->
+
+
+<!--
+
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #DoSetupAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Do Setup </h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate New Do Setup</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Print / Release DO </h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Do Setup </h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">S.No</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off"  [disabled]="DeleteMode || ViewMode" class="form-control" name="Date" type="text" [(ngModel)]="DOSETUP.SNO" placeholder="Seriol number" [readonly]="true" required="true" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Quantity</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="Quantity" [disabled]="DeleteMode || ViewMode" class="form-control input-group-lg" required type="number" title="Quantity" [(ngModel)]="DOSETUP.Quantity3" placeholder="Enter Quantity" required="true"
+                            [readonly]="true" />
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">Lot Number</label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="inventorystockList" name="LOTNumber" bindLabel="LOTNumber" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select LOTNumber"  [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                          </ng-select>
+                      </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Grade </label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="inventorystockList" name="GradeName" bindLabel="AddGrade.GradeName" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Grade Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                          </ng-select>
+                      </div>
+
+                      <label class="col-sm-2 col-form-label">Godown Name </label>
+                      <div class="col-sm-2">
+                        <ng-select [items]="inventorystockList" name="GDName" bindLabel="GodownSetup.GDName" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Godown Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                        </ng-select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Agent Name </label>
+                    <div class="col-sm-2">
+                      <ng-select [items]="inventorystockList" name="CreatedBy" bindLabel="CreatedBy" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Agent Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                      </ng-select>
+                  </div>
+
+
+
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial" width="100%">
+                                <thead>
+                                  <tr >
+                                    <th>#</th>
+                                    <th scope="col">CustomerName</th>
+                                    <th scope="col">DODate</th>
+                                    <th scope="col">Validatity</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                  <td></td>
+                                        <td>
+                                          <ng-select [items]="customerList" name="Name" bindLabel="Name" [(ngModel)]="DOSETUP.Customer" placeholder="Select CustomerName Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                                          </ng-select>
+                                        </td>
+                                        <td><input autocomplete="off" name="DODate"  theme="dp-material" [dpDayPicker]="config" class="form-control input-group-md" type="text" title="Enter date" [(ngModel)]="DOSETUP.DODate" placeholder="date" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <td><input autocomplete="off" name="Validity" class="form-control input-group-md" type="text" title="Enter Validity" [(ngModel)]="DOSETUP.Validity" placeholder="Validity" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+
+
+                        <div class="col-xs-3 input-padding col-xs-1 d-flex align-items-end">
+                          <button [disabled]="DeleteMode || ViewMode" class="btn btn-success" (click)="AddPanel()">
+                              <i class="fa fa-plus" style="color: #fff;"></i> Add More Detail(s)</button>
+                      </div>
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial" width="100%">
+                                <thead>
+                                  <tr >
+                                    <th>#</th>
+
+
+                                    <th scope="col">Agent Release Date</th>
+                                    <th scope="col">Release Quantity</th>
+                                    <th scope="col">Denomation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of DOSETUP.DOSETUPDETAILS; let i = index">
+                                    <td></td>
+                                    <td><input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'AgentDate_'+i" type="text" title="AgentDate" [(ngModel)]="item.AgentDate" placeholder="AgentDate"
+                                      />
+                                    <td><input autocomplete="off" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'Quantity2_'+i" type="text" title="Quantity2" (change)="CalculatePaymentDue()" [(ngModel)]="item.Quantity2" placeholder="Quantity2" />
+                                    </td>
+                                    <td><input autocomplete="off" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'Denomation_'+i" type="text" title="Denomation" [(ngModel)]="item.Denomation" placeholder="Denomation" [readonly]="true" />
+                                    </td>
+                                    <td *ngIf="AddMode || EditMode">
+                                      <span> <i class="fa fa-trash-o delete"
+                                              (click)="RemovePanel()"></i></span>
+                                          </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="DOSETUP.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="DOSETUP.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="DOSETUP.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="DOSETUP.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(DOSETUP)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(DOSETUP)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(DOSETUP)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner> -->
+
+
+
+<!-- 21 september -->
+
+
+
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #DoSetupAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Do Setup </h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate New Do Setup</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Print / Release DO </h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Do Setup </h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <!-- <label class="col-sm-2 col-form-label">S.No</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off"  [disabled]="DeleteMode || ViewMode" class="form-control" name="Date" type="text" [(ngModel)]="DOSETUP.SNO" placeholder="Seriol number" [readonly]="true" required="true" />
+                        </div> -->
+                        <label class="col-sm-2 col-form-label">Serial Number</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" class="form-control" name="serialnumber" type="text" title="serialnumber" [(ngModel)]="DOSETUP.serialnumber" placeholder="Serial number" readonly />
+                        </div>
+
+
+                        <label class="col-sm-2 col-form-label">Quantity</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="Quantity" [disabled]="DeleteMode || ViewMode" class="form-control input-group-lg" required type="number" title="Quantity" [(ngModel)]="DOSETUP.Quantity3" placeholder="Enter Quantity" required="true"
+                            [readonly]="true" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Lot Number</label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="inventorystockList" name="LOTNumber" bindLabel="LOTNumber" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select LOTNumber"  [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                          </ng-select>
+                      </div>
+
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Grade </label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="inventorystockList" name="GradeName" bindLabel="AddGrade.GradeName" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Grade Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                          </ng-select>
+                      </div>
+
+                      <label class="col-sm-2 col-form-label">Godown Name </label>
+                      <div class="col-sm-2">
+                        <ng-select [items]="inventorystockList" name="GDName" bindLabel="GodownSetup.GDName" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Godown Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                        </ng-select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Agent Name </label>
+                    <div class="col-sm-2">
+                      <ng-select [items]="inventorystockList" name="CreatedBy" bindLabel="CreatedBy" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select Agent Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                      </ng-select>
+                  </div>
+
+
+                        <!-- <label class="col-sm-2 col-form-label">AssignedToAgent</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="AssignedToAgent" class="form-control input-group-lg" required type="text" title="Gross Total" [(ngModel)]="DOSETUP.AssignedToAgent" placeholder="Enter AssignedToAgent" required="true" />
+                        </div> -->
+
+
+                        <!-- <div class="col-sm-1">
+                            <button [disabled]="DeleteMode || ViewMode" class="btn btn-success" (click)="AddDetails()">
+                                <i class="fa fa-plus" style="color: #fff;"></i> Add More Detail(s)</button>
+                        </div> -->
+
+
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial" width="100%">
+                                <thead>
+                                  <tr >
+                                    <th>#</th>
+                                    <th scope="col">CustomerName</th>
+                                    <th scope="col">DODate</th>
+                                    <th scope="col">Validatity</th>
+                                    <th scope="col">Balance</th>
+                                   <th scope="col">Total Released</th>
+                                    <th scope="col">Agent Released</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr >
+                                  <td></td>
+                                        <td>
+                                          <ng-select [items]="customerList" name="Name" bindLabel="Name" [(ngModel)]="DOSETUP.Customer" placeholder="Select CustomerName Name" [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                                          </ng-select>
+                                        </td>
+                                        <td><input autocomplete="off" name="DODate"  theme="dp-material" [dpDayPicker]="config" class="form-control input-group-md" type="text" title="Enter date" [(ngModel)]="DOSETUP.DODate" placeholder="date" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <td><input autocomplete="off" name="Validity" class="form-control input-group-md" type="text" title="Enter Validity" [(ngModel)]="DOSETUP.Validity" placeholder="Validity" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <td><input autocomplete="off" name="Payble" class="form-control input-group-md" type="text" title="Enter Payble" [(ngModel)]="DOSETUP.Payble" placeholder="total" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <td><input autocomplete="off" name="Rao" class="form-control input-group-md" type="text" title="Enter Validity" [(ngModel)]="DOSETUP.Rao" placeholder="Balance" [readonly]="true" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+
+                                        <td><input autocomplete="off" name="AgentDate" theme="dp-material" [dpDayPicker]="config" class="form-control input-group-md" type="text" title="Enter Date" [(ngModel)]="DOSETUP.AgentDate" placeholder="Date" [disabled]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <!-- <td><input autocomplete="off" name="Quantity2" class="form-control input-group-md" type="text" title="Enter Quantity" (change)="CalculatePaymentDue()" [(ngModel)]="DOSETUP.Quantity2" placeholder="Denomation quantity"  [disabled]="DeleteMode || ViewMode" [readonly]="true"  />
+                                        </td>
+                                        <td><input autocomplete="off" name="Denomation"  class="form-control input-group-md" type="text" title="Enter Denomation" [(ngModel)]="DOSETUP.Denomation" placeholder="Denomation"  [disabled]="DeleteMode || ViewMode" appNumbersWithTwoDecimals [readonly]="true" />
+                                        </td> -->
+                                        <!-- <td><input autocomplete="off" class="form-control" required type="text" title="Total" [(ngModel)]="DOSETUP.CreatedBy" placeholder="Enter CreatedBy" readonly />
+                                        </td> -->
+                                        <!-- <td *ngIf="AddMode">
+                                            <span> <i class="fa fa-trash-o delete"
+                                                    (click)="RemoveDetails(item,i)"></i></span>
+                                        </td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <!-- agani add more option -->
+
+                        <div class="col-xs-3 input-padding col-xs-1 d-flex align-items-end">
+                          <button [disabled]="DeleteMode || ViewMode" class="btn btn-success" (click)="AddPanel()">
+                              <i class="fa fa-plus" style="color: #fff;"></i> Add More Detail(s)</button>
+                      </div>
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial" width="100%">
+                                <thead>
+                                  <tr >
+                                    <th>#</th>
+
+
+                                    <!-- <th scope="col">Agent Release Date</th> -->
+                                    <th scope="col">Release Quantity</th>
+                                    <!-- <th scope="col">fgdfg</th> -->
+                                    <!-- <th scope="col">VIEW</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of DOSETUP.DOSETUPDETAILS; let i = index">
+                                    <td></td>
+                                    <!-- <td><input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'AgentDate_'+i" type="text" title="AgentDate" [(ngModel)]="item.AgentDate" placeholder="AgentDate"
+                                      /> -->
+                                    <td><input autocomplete="off" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'Quantity2_'+i" type="text" title="Quantity2" (change)="CalculateTotalFare(item)" [(ngModel)]="item.Quantity2" placeholder="Quantity2" />
+                                    </td>
+                                    <!-- <div class="form-control change-ph">
+                                      <ng-select [items]="inventorystockList" name="LOTNumber" bindLabel="LOTNumber" [(ngModel)]="DOSETUP.AddInventoryStock" placeholder="Select LOTNumber"  [disabled]="DeleteMode || ViewMode" [readonly]="true" required="true">
+                                      </ng-select>
+                                  </div> -->
+
+
+                                    <!-- <td><input autocomplete="off" class="form-control change-ph" required [disabled]="DeleteMode || ViewMode" [name]="'Denomation_'+i" type="text" title="Denomation" [(ngModel)]="item.Denomation" placeholder="Denomation" [readonly]="true" />
+                                    </td> -->
+                                    <td *ngIf="AddMode || EditMode">
+                                      <span> <i class="fa fa-trash-o delete"
+                                              (click)="RemovePanel()"></i></span>
+                                          </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- again add more option -->
+                    </div>
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="DOSETUP.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="DOSETUP.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="DOSETUP.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="DOSETUP.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(DOSETUP)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(DOSETUP)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!DoSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(DOSETUP)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

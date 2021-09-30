@@ -1,0 +1,129 @@
+<p>party-add works!</p>
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #PartyAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Party</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Party</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Party</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Party</h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">Party Name</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control input-group-lg" required name="Name" type="text" title="Enter Name" [(ngModel)]="Party.Name" placeholder="Enter Name" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Company Name</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="CompanyName" class="form-control input-group-lg" required type="text" title="Enter Company Name" [(ngModel)]="Party.CompanyName" placeholder="Enter Company Name" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Phone No.</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Phone" class="form-control input-group-lg" required type="text" title="Enter Phone No." [(ngModel)]="Party.Phone" placeholder="Enter Phone No." [readonly]="DeleteMode || ViewMode" appNumbersonly />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Email" class="form-control input-group-lg" type="text" title="Enter Email" [(ngModel)]="Party.Email" placeholder="Enter Email" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Address" class="form-control input-group-lg" type="text" title="Enter Address" [(ngModel)]="Party.Address" placeholder="Enter Address" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="City" class="form-control input-group-lg" type="text" title="Enter City" [(ngModel)]="Party.City" placeholder="Enter City" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="Party.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="Party.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="Party.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="Party.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!PartyAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(Party)">
+                        <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!PartyAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(Party)">
+                        <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!PartyAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(Party)">
+                        <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                    </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                        <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                    </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

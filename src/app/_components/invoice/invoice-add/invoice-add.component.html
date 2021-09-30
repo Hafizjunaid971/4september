@@ -1,0 +1,207 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #InvoiceAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Invoice</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate New Invoice</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Invoice</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Invoice</h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">Invoice Number</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" required name="InvoiceNumber" type="text" [(ngModel)]="Invoice.InvoiceNumber" [readonly]="true" />
+                        </div>
+
+                        <label class="col-sm-1 col-form-label">Invoice Date</label>
+                        <div class="col-sm-3">
+                            <input autocomplete="off" [disabled]="DeleteMode || ViewMode || EditMode" theme="dp-material" [dpDayPicker]="config" class="form-control" name="Date" type="text" [(ngModel)]="Invoice.InvoiceDate" placeholder="Select Date" required />
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Customer</label>
+                        <div class="col-sm-4">
+                            <ng-select [items]="companyList" (change)="GetPaymentDueStatus(Invoice.Company)" [disabled]="DeleteMode || ViewMode || EditMode" name="Company" bindLabel="CompanyName" [(ngModel)]="Invoice.Company" required placeholder="Select Customer">
+                            </ng-select>
+                        </div>
+
+                        <label class="col-sm-1 col-form-label">Particulars</label>
+                        <div class="col-sm-3">
+                            <input autocomplete="off" class="form-control" required name="Particulars" type="text" [(ngModel)]="Invoice.Particulars" [disabled]="DeleteMode || ViewMode || EditMode" placeholder="Enter Particulars" />
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button [disabled]="DeleteMode || ViewMode || EditMode" class="btn btn-success" (click)="AddProductInventoryListPanel()">
+                                <i class="fa fa-plus" style="color: #fff;"></i>  Add More Product(s)
+                            </button>
+                        </div>
+
+                        <div class="table-responsive-sm">
+                            <table class="table css-serial" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th scope="col">Product</th>
+                                        <th scope="col">Code</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Packing</th>
+                                        <th scope="col">TP</th>
+                                        <th scope="col">In Inventory</th>
+                                        <th scope="col">No. of Units</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of Invoice.ProductInventoryList; let i = index">
+                                        <td></td>
+                                        <td>
+                                            <ng-select [items]="productList" [title]="item.Product" id="item.Product" [disabled]="DeleteMode || ViewMode || EditMode" [name]="'Product_'+i" bindLabel="Name" [(ngModel)]="item.Product" required placeholder="Product" (change)="getCodeAgainstProduct(item)">
+                                            </ng-select>
+                                        </td>
+                                        <td>
+                                            <ng-select [items]="CodeList" [title]="item.Code" id="item.Code" [disabled]="DeleteMode || ViewMode || EditMode" [name]="'Code_'+i" bindLabel="Code" [(ngModel)]="item.Code" required placeholder="Code" (change)="getProductDetailsAgainstCode(item,i)">
+                                            </ng-select>
+                                        </td>
+                                        <!-- <td><input autocomplete="off" class="form-control" required [name]="'Category_'+i" type="text" [title]="item.Category" [(ngModel)]="item.Category" [readonly]="true" placeholder="Category" />
+                                        </td>
+                                        <td> <input autocomplete="off" class="form-control" required [name]="'Packing_'+i" type="text" [title]="item.Packing" [(ngModel)]="item.Packing" [readonly]="true" placeholder="Packing" />
+                                        </td>
+                                        <td> <input autocomplete="off" class="form-control" required [name]="'TP_'+i" type="text" [title]="item.TP" [(ngModel)]="item.TP" [readonly]="true" placeholder="TP" />
+                                        </td>
+                                        <td> <input autocomplete="off" class="form-control" required [name]="'InInventory_'+i" type="text" [title]="item.InInventory" [(ngModel)]="item.InInventory" [readonly]="true" placeholder="In Inventory" appNumbersonly
+                                            /></td>
+                                        <td><input autocomplete="off" class="form-control" required [disabled]="DeleteMode || ViewMode || EditMode" [title]="item.NoOfUnits" [name]="'NoOfUnits_'+i" type="text" [(ngModel)]="item.NoOfUnits" placeholder="No. of Units"
+                                                (change)=CalculateTotal(item) appNumbersonly /></td>
+                                        <td>
+                                            <input autocomplete="off" class="form-control" required [name]="'Total_'+i" type="text" [title]="item.Total" [(ngModel)]="item.Total" [readonly]="true" placeholder="Total" />
+                                        </td> -->
+                                        <td *ngIf="AddMode">
+                                            <span> <i class="fa fa-trash-o delete" (click)="RemoveProductInventoryListPanel(item,i)"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Total Payment</label>
+                        <!-- <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" required name="TotalPayment" type="text" [title]="Invoice.TotalPayment" [(ngModel)]="Invoice.TotalPayment" [readonly]="true" placeholder="Total Payment" appNumbersWithTwoDecimals />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Discount (%)</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" [disabled]="DeleteMode || ViewMode || EditMode" (change)="CalculateNetAmount(Invoiceem)" required name="Discount" type="text" [title]="Invoice.Discount" [(ngModel)]="Invoice.Discount" placeholder="Discount(%)"
+                                appNumbersWithTwoDecimals />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Discount Amount</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" required name="DiscountAmount" type="text" [title]="Invoice.DiscountAmount" [(ngModel)]="Invoice.DiscountAmount" placeholder="Discount Amount" appNumbersWithTwoDecimals [readonly]="true" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Net Amount</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" required name="NetAmount" type="text" [title]="Invoice.NetAmount" [(ngModel)]="Invoice.NetAmount" [readonly]="true" placeholder="Net Amount" appNumbersWithTwoDecimals />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Payment Done</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" (change)="CalculatePaymentDue(Invoice)" required name="PaymentDone" type="text" [title]="Invoice.PaymentDone" [(ngModel)]="Invoice.PaymentDone" placeholder="Payment Done" [readonly]="DeleteMode || ViewMode"
+                                appNumbersWithTwoDecimals />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Payment Due</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control" required name="PaymentDue" type="text" [title]="Invoice.PaymentDue" [(ngModel)]="Invoice.PaymentDue" placeholder="Payment Due" appNumbersWithTwoDecimals [readonly]="true" />
+
+                        </div> -->
+
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="Invoice.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="Invoice.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="Invoice.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="Invoice.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!InvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(Invoice)">
+                            <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                        </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!InvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(Invoice)">
+                            <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                        </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!InvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(Invoice)">
+                            <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                        </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                            <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -1,0 +1,369 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form #VendorLedgerAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+
+                  <div *ngIf="ViewMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Vendor Purchase Invoice</h3>
+                </div>
+                <div *ngIf="AddMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Vendor Purchase invoice</h3>
+                </div>
+                <div *ngIf="EditMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Vendor vendor Purchase Invoice</h3>
+                </div>
+                <div *ngIf="DeleteMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Vendor invoice</h3>
+                </div>
+
+                    <!-- <div class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i>
+                        </h3>
+                    </div> -->
+
+                    <div class="input-group margin-top-30">
+                        <div class="row mt-0">
+
+                            <div class="pl-0 col-xs-2">
+                                <label>Date</label>
+                                <input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control" name="Date" type="text" [(ngModel)]="VendorLedger.Date" placeholder="Select Date" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-2">
+                                <label>Invoice Number</label>
+                                <input autocomplete="off" name="InvoiceNumber" class="form-control input-group-lg" required=true type="text" title="Enter Invoice Number" [(ngModel)]="VendorLedger.InvoiceNumber" placeholder="Enter Invoice Number" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-2">
+                                <label>Vendor Name</label>
+                                <ng-select [items]="vendorList" name="Vendor" bindLabel="Name" [(ngModel)]="VendorLedger.Vendor" placeholder="Select Vendor" required="true">
+                                </ng-select>
+                            </div>
+                            <!-- mene new add kia yahann -->
+                            <div class="pl-0 col-xs-2">
+                              <label>Vendor Company name</label>
+                              <ng-select [items]="vendorList" name="Vendor" bindLabel="CompanyName" [(ngModel)]="VendorLedger.Vendor" placeholder="Select Vendor" required="true">
+                              </ng-select>
+                          </div>
+                          <div class="pl-0 col-xs-2">
+                            <label>Contact person name 2</label>
+                            <ng-select [items]="vendorList" name="Vendor" bindLabel="ContactPersonName2" [(ngModel)]="VendorLedger.Vendor" placeholder="Select Vendor" required="true">
+                            </ng-select>
+                        </div>
+
+                        <div class="pl-0 col-xs-3">
+                          <label>Lot Number No.</label>
+                          <input autocomplete="off" class="form-control input-group-lg" name="LotNumber" type="text" title="LotNumber" [(ngModel)]="VendorLedger.LotNumber" placeholder="Lot numbero" required readonly />
+                      </div>
+
+                            <!-- yahan tak new add kia ha -->
+
+                            <div class="pl-0 col-xs-2">
+                                <label>Particulars</label>
+                                <input autocomplete="off" name="Particulars" class="form-control input-group-lg" required=true type="text" title="Enter Particulars" [(ngModel)]="VendorLedger.Particulars" placeholder="Enter Particulars" required="true" />
+                            </div>
+                            <!-- new add kia ha mene -->
+
+                            <div class="pl-0 col-xs-2">
+                              <label>Gross Total</label>
+                                <input autocomplete="off" name="GrossTotal" class="form-control input-group-lg" required type="text" title="Gross Total" [(ngModel)]="VendorLedger.GrossTotal" placeholder="Enter Gross Total" required="true" readonly (change)="CalculateTotal()" />
+                            </div>
+
+                            <div class="pl-0 col-xs-2 margin-top-25">
+                                <button [disabled]="DeleteMode || ViewMode" class="btn btn-primary" (click)="AddDetails()">Add New Item</button>
+                            </div>
+
+
+
+
+
+
+                            <br/>
+                            <br/>
+                            <br/>
+
+
+
+                            <div class="table-responsive-sm">
+                                <table id="myTable" class="table css-serial">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th scope="col">Product Name</th>
+                                            <th scope="col">product Code</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Unit Price</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of VendorLedger.Details; let i = index">
+                                            <td></td>
+                                            <!-- <td><input (change)="ValidateItemName(item,i)" autocomplete="off" class="form-control" required [name]="'ItemName_'+i" type="text" title="Item Name" id="item.ItemName" [(ngModel)]="item.ItemName" placeholder="Enter Item Name"
+                                              [readonly]="DeleteMode || ViewMode" />
+                                      </td> -->
+                                      <td><ng-select [items]="priceList" [name]="'Name_'+i" id="item.Name" bindLabel="Name" [(ngModel)]="item.PriceList" placeholder="Select Product name" required="true">
+                                      </ng-select></td>
+                                      <td><ng-select [items]="priceList" [name]="'Code_'+i" id="item.Code" bindLabel="PriceListDetails.Code" [(ngModel)]="item.PriceList" placeholder="Select Product Code" required="true">
+                                      </ng-select>
+                                      </td>
+                                             <td><input autocomplete="off" class="form-control" required=true [name]=" 'Quantiy_'+i" type="text" title="Quantiy" [(ngModel)]="item.Quantity" placeholder="Enter Quantiy" (change)=CalculateTotal(item) [readonly]="DeleteMode || ViewMode" /></td>
+                                            <td><input autocomplete="off" class="form-control" required=true [name]=" 'UnitPrice_'+i" type="text" title="Enter Unit Price" [(ngModel)]="item.UnitPrice" placeholder="Enter Unit Price"(change)=CalculateTotal(item)  [readonly]="DeleteMode || ViewMode"
+                                                    appNumbersWithTwoDecimals />
+                                            </td>
+                                            <td><input autocomplete="off" class="form-control" required=true [name]=" 'Total_'+i" type="text" title="Total" [(ngModel)]="item.Total" placeholder="Enter Total" readonly/>
+                                            </td>
+                                            <td><button [disabled]="DeleteMode || ViewMode " class="btn btn-primary par-lel" (click)="RemoveDetails(i)">Remove</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- <div class="pl-0 col-xs-2">
+                                <label>Amount</label>
+                                <input autocomplete="off" class="form-control input-group-lg" required=true name="Amount" type="text" title="Enter Amount" [(ngModel)]="VendorLedger.Amount" placeholder="Enter Amount" appNumbersWithTwoDecimals />
+                            </div>
+
+                            <div class="pl-0 col-xs-2">
+                                <label>Debit/Credit</label>
+                                <ng-select [items]="debitCreditList" name="DebitCredit" [(ngModel)]="VendorLedger.DebitCredit" placeholder="Select Debit/Credit" required="true">
+                                </ng-select>
+                            </div> -->
+
+                        </div>
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode " class="margin-top-30 ">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header style="background-color: #f0f1f3 !important; ">
+                                    <mat-panel-title style="font-weight: 500; ">
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Created By </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="CreatedBy " type="text " title="Created By " [(ngModel)]="VendorLedger.CreatedBy " placeholder="Created By " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Created Date </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="CreatedDate " type="text " title="Created Date " [(ngModel)]="VendorLedger.CreatedDate " placeholder="Created Date " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Modified By </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="ModifiedBy " type="text " title="Modified By " [(ngModel)]="VendorLedger.ModifiedBy " placeholder="Modified By " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Modified Date </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="ModifiedDate " type="text " title="Modified Date " [(ngModel)]="VendorLedger.ModifiedDate " placeholder="Modified Date " />
+                                </div><br><br><br><br><br>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                      <div class="mr-2" *ngIf="AddMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(VendorLedger)">
+                      <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                  </button>
+                      </div>
+
+                      <div class="mr-2" *ngIf="EditMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(VendorLedger)">
+                      <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                  </button>
+                      </div>
+
+                      <div class="mr-2" *ngIf="DeleteMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(VendorLedger)">
+                      <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                  </button>
+                      </div>
+
+                      <div class="mr-2">
+                          <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                      <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                  </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <form #VendorLedgerAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+
+                  <div *ngIf="ViewMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Vendor Place Stock</h3>
+                </div>
+                <div *ngIf="AddMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Vendor Placement Stock</h3>
+                </div>
+                <div *ngIf="EditMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Vendor vendor Place Stock</h3>
+                </div>
+                <div *ngIf="DeleteMode" class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Place Stock</h3>
+                </div>
+
+
+                    <div class="input-group margin-top-30">
+                        <div class="row mt-0">
+
+
+
+
+
+
+
+
+                            <br/>
+                            <br/>
+                            <br/>
+
+
+
+                            <div class="table-responsive-sm">
+                                <table id="myTable" class="table css-serial">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th scope="col">Product Name Name</th>
+                                            <th scope="col">product Code</th>
+                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Godown Name</th>
+                                            <th scope="col">Lot Number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of VendorLedger.Details; let i = index">
+                                            <td></td>
+
+                                                    <td><ng-select [items]="productList" [name]="'Name_'+i" id="item.Name" bindLabel="Name" [(ngModel)]="item.ItemName" placeholder="Select Product name" required="true" >
+                                                    </ng-select></td>
+                                                    <td><ng-select [items]="productList" [name]="'Code_'+i" id="item.Code" bindLabel="Code" [(ngModel)]="item.Code" placeholder="Select Product Code" required="true">
+                                                    </ng-select>
+                                                    </td>
+
+                                             <td><input autocomplete="off" class="form-control" required=true name="QuantityGodown" type="text" title="Quantiy" [(ngModel)]="VendorLedger.QuantityGodown" placeholder="Enter Quantiy" [readonly]="DeleteMode || ViewMode" /></td>
+                                            <td><ng-select [items]="godownList" [name]="'GDName_'+i" id="item.GDName" bindLabel="GDName" [(ngModel)]="item.GDName" placeholder="Select Product Code" required="true">
+                                            </ng-select>
+                                            </td>
+                                            <td><input autocomplete="off" class="form-control input-group-lg" name="LotNumber" type="text" title="LotNumber" [(ngModel)]="VendorLedger.LotNumber" placeholder="Lot number" required readonly />
+                                            </td>
+
+                                            <td><button [disabled]="DeleteMode || ViewMode " class="btn btn-primary par-lel" (click)="RemoveDetails(i)">Remove</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode " class="margin-top-30 ">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header style="background-color: #f0f1f3 !important; ">
+                                    <mat-panel-title style="font-weight: 500; ">
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Created By </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="CreatedBy " type="text " title="Created By " [(ngModel)]="VendorLedger.CreatedBy " placeholder="Created By " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Created Date </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="CreatedDate " type="text " title="Created Date " [(ngModel)]="VendorLedger.CreatedDate " placeholder="Created Date " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Modified By </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="ModifiedBy " type="text " title="Modified By " [(ngModel)]="VendorLedger.ModifiedBy " placeholder="Modified By " />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30 ">
+                                    <label>Modified Date </label>
+                                    <input autocomplete="off " class="form-control input-group-lg " readonly=true name="ModifiedDate " type="text " title="Modified Date " [(ngModel)]="VendorLedger.ModifiedDate " placeholder="Modified Date " />
+                                </div><br><br><br><br><br>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                      <div class="mr-2" *ngIf="AddMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(VendorLedger)">
+                      <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                  </button>
+                      </div>
+
+                      <div class="mr-2" *ngIf="EditMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(VendorLedger)">
+                      <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                  </button>
+                      </div>
+
+                      <div class="mr-2" *ngIf="DeleteMode">
+                          <button type="button" [disabled]="!VendorLedgerAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(VendorLedger)">
+                      <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                  </button>
+                      </div>
+
+                      <div class="mr-2">
+                          <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                      <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                  </button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

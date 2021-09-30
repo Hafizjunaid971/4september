@@ -1,0 +1,104 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form #DesignLedgerForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Customer Ledger</h3>
+                        <h6>You can view ledger upto 30 Days</h6>
+                    </div>
+
+                    <div class="input-group margin-top-30">
+                        <div class="row mt-0">
+                            <div class="pl-0 col-xs-3">
+                                <label>To Date</label>
+                                <input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control" name="toDate" type="text" [(ngModel)]="toDate" placeholder="Select To Date" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-3">
+                                <label>From Date</label>
+                                <input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control" name="fromDate" type="text" [(ngModel)]="fromDate" placeholder="Select From Date" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-3">
+                                <label>Customer</label>
+                                <ng-select (change)="SetName()" [items]="customerList" name="customer" bindLabel="Name" [(ngModel)]="customer" placeholder="Select Customer">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex my-4">
+
+                            <div class="form-group mr-2">
+                                <button class="btn btn-primary" (click)="GetAccountLedger()" [disabled]="!DesignLedgerForm.valid">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Fetch Record
+                                </button>
+                            </div>
+
+                            <div class="form-group mr-2">
+                                <button class="btn btn-primary" (click)="ExportToExcel()" [disabled]="!Export">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Export to Excel
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <table *ngIf="ShowTable" class="table table-hover" #TABLE #table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Invoice No.</th>
+                                    <th scope="col">Customer</th>
+                                    <th scope="col">Particulars</th>
+                                    <th scope="col">Debit Amount</th>
+                                    <th scope="col">Credit Amount</th>
+                                    <th scope="col">Balance</th>
+                                    <th scope="col">Opening Balance</th>
+                                    <th scope="col">Closing Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of pagedItems; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.Date}}</td>
+                                    <td>{{item.InvoiceNumber}}</td>
+                                    <td>{{item.Customer}}</td>
+                                    <td>{{item.Particulars}}</td>
+                                    <td>{{item.DebitAmount}}</td>
+                                    <td>{{item.CreditAmount}}</td>
+                                    <td>{{item.Balance}}</td>
+                                    <td>{{item.OpeningBalance}}</td>
+                                    <td>{{item.ClosingBalance}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="setPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

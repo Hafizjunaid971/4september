@@ -1,0 +1,18 @@
+.body {
+    /* background-image: url(https://lh4.googleusercontent.com/-XplyTa1Za-I/VMSgIyAYkHI/AAAAAAAADxM/oL-rD6VP4ts/w1184-h666/Android-Lollipop-wallpapers-Google-Now-Wallpaper-2.png); */
+    background-image: url('inven.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-height: 10vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+.title {
+    color: #fff;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    font-size: 22px;
+    font-weight: 400;
+}

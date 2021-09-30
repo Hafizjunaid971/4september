@@ -1,0 +1,182 @@
+<mat-dialog-content>
+    <mat-dialog-actions>
+        <button style="color: #fff;background-color: #d9534f;border-color: #d43f3a;border: #fff;" mat-raised-button printSectionId="print-section" ngxPrint>Print Order</button>
+        <button style="color: #fff;background-color: #5cb85c;border-color: #4cae4c;border: #fff;" mat-raised-button (click)="closeMe()">Close</button>
+    </mat-dialog-actions>
+
+    <div id="print-section">
+        <h1 mat-dialog-title style="text-align: center;font-family: Arial, Helvetica, sans-serif;">DELIVERY ORDER
+        </h1>
+        <table class="table" style="margin-right: auto;width: 100%;text-align: center;">
+          <thead>
+              <tr>
+                  <th style="text-align: center;" scope="col">S.NO: <u>{{data.info.serialnumber}}----1</u></th>
+                  <th style="text-align: center;" scope="col">DATE: <u>{{data.info.AgentDate}}</u> </th>
+              </tr>
+          </thead>
+          <tbody>
+
+          </tbody>
+      </table>
+        <br>
+
+        <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"> <b>Godown Name:</b> &nbsp;&nbsp;&nbsp;{{data.info.AddInventoryStock.GodownSetup.GDName}}</h5>
+        <!-- <h4><u>{{data.info.AddInventoryStock.GodownSetup.GDName}}</u></h4> -->
+
+
+        <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"><b style="border-bottom: none;">DELIVER YO M/S:</b> &nbsp;&nbsp;&nbsp; {{data.info.Customer.Name}} </h5>
+        <h5 style="font-weight: 500;font-size: 21px; border-bottom: 1px solid black; width:100%"><b>LOT NUMBER:</b> &nbsp;&nbsp;&nbsp; {{data.info.AddInventoryStock.LOTNumber}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>GRADE:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.info.AddInventoryStock.AddGrade.GradeName}} </h5>
+        <!-- <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"><b>Total Quantity:</b> &nbsp;&nbsp;&nbsp; {{data.info.Quantity3}} </h5> -->
+        <h5 style="font-weight: 500;font-size: 21px; border-bottom: 1px solid black; width:100%"><b>D/O VALIDITY:</b> &nbsp;&nbsp;&nbsp; {{data.info.Validity}}</h5>
+        <!-- <h4 style="font-weight: 500;">DENOMATION DETAILS</h4> -->
+
+
+
+
+
+
+
+
+        <table id="table3" class="table">
+            <tbody>
+<!-- <tr style="padding: 5px 0px 5px 0px;">
+
+</tr> -->
+ <tr *ngFor="let item of data.info.DOSETUPDETAILS; let i = index">
+                <td>
+                  <!-- <tr>
+                    <td style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%">Denomation
+                    </td>
+                  </tr> -->
+                  <h2 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%">
+                    <b>Quantity</b>&nbsp;&nbsp;&nbsp; {{item.Quantity2}}
+                  </h2>
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+<br>
+<br>
+<br><br>
+
+
+      <tr>
+          <th style="text-align: center;" scope="col">__________________________</th>
+      </tr>
+
+      <tr>
+          <td style="margin-right: auto;width: 100%;text-align: center;"> <strong>AUTHORIZER SIGN</strong></td>
+      </tr>
+
+
+
+
+<tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr><tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr>
+<tr>
+  <td scope="col">.</td>
+</tr>
+
+
+                    <tr>
+                      <th><h1 mat-dialog-title style="text-align: center;font-family: Arial, Helvetica, sans-serif;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; DELIVERY ORDER</h1>
+                      </th>
+                    </tr>
+<!-- <tr><th>{{i+i}}</th></tr> -->
+                    <tr>
+                      <th ><h2><u><b>SNO:</b> &nbsp;&nbsp;&nbsp; {{data.info.serialnumber}}--{{1+i+1}}</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u><b>DATE:</b> &nbsp;&nbsp;&nbsp; {{data.info.AgentDate}}</u> </h2>
+                      <!-- <th ><h2><u><b>SNO:</b> &nbsp;&nbsp;&nbsp; {{data.info.serialnumber}}</u> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u><b>DATE:</b> &nbsp;&nbsp;&nbsp; {{data.info.AgentDate}}</u> </h2> -->
+                      </th>
+                      </tr>
+
+                <tr>
+                  <th > <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black;"><b>Godown Name: </b>{{data.info.AddInventoryStock.GodownSetup.GDName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                  </th>
+                </tr>
+
+            <tr>
+              <th ><h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black;"><b>DELIVER YO M/S:</b>{{data.info.Customer.Name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h5>
+              </th>
+            </tr>
+
+            <tr>
+              <th ><h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black;"><b>LOT NUMBER:</b> &nbsp;&nbsp;&nbsp; {{data.info.AddInventoryStock.LOTNumber}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>GRADE:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.info.AddInventoryStock.AddGrade.GradeName}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h5>
+              </th>
+            </tr>
+              <tr>
+                <th ><h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black;"><b>D/O VALIDITY:</b>{{data.info.Validity}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h5>
+                </th>
+              </tr>
+              <tr>
+                <!-- <th>
+                  <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%">
+                    Quantity deno
+                  </h5>
+                </th> -->
+
+              </tr>
+
+                    </td>
+
+            </tbody>
+        </table>
+        <!-- <table class="table" style="margin-right: auto;width: 100%;text-align: center;">
+            <thead>
+                <tr>
+                  <br><br><br>
+                    <th style="text-align: center;" scope="col">__________________________</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> <strong>AUTHORIZER SIGN</strong></td>
+                </tr>
+            </tbody>
+        </table> -->
+    </div>
+</mat-dialog-content>

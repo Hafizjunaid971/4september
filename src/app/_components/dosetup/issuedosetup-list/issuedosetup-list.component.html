@@ -1,0 +1,97 @@
+<app-sidenav></app-sidenav>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+
+                <div class="form-group row">
+
+                    <div class="col-sm-2">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Seriol Number">
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control input-group-lg" id="searchTextId5" [(ngModel)]="searchText5" name="searchText5" placeholder="Search By LotNumber">
+                  </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control input-group-lg" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Godown Name">
+                  </div>
+                   <div class="col-xs-2">
+                    <input type="text" class="form-control input-group-lg" id="searchTextId3" [(ngModel)]="searchText3" name="searchText3" placeholder="Search By Customer Name">
+                </div>
+                <!-- <div class="col-xs-2">
+                  <input type="text" class="form-control input-group-lg" id="searchTextId4" [(ngModel)]="searchText4" name="searchText4" placeholder="Search By Quantity">
+              </div> -->
+                </div>
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Issue DO Setup List</h3>
+                </div>
+
+
+                <div class="table-responsive-sm margin-top-25">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>S.NO</th>
+                                <th>Stock Quantity</th>
+                                <th>Do Send Quantity</th>
+                                <th>Availabe Stock</th>
+                                <th>Lot Number</th>
+                                <th>Grade</th>
+                                <th>Godown name</th>
+                                <th>Customer Name</th>
+                                <th>Agent Name</th>
+                                <th>DO Date</th>
+                                <th>Validity</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of pagedItems | searchDOSETUPList: searchText | searchDOSETUPList2: searchText2 | searchDOSETUPList3: searchText3 | searchDOSETUPList5: searchText5  let i = index ">
+                            <td >{{i+1}}</td>
+                                <!-- <td>{{item.SNO}}</td> -->
+                                <td>{{item.serialnumber}}</td>
+                                <td>{{item.AddInventoryStock.Quantity}}</td>
+                                <td>{{item.Quantity3}}</td>
+                                <td>{{item.Denomation2}}</td>
+                                <td>{{item.AddInventoryStock.LOTNumber}}</td>
+                                <td>{{item.AddInventoryStock.AddGrade.GradeName}}</td>
+                                <td>{{item.AddInventoryStock.GodownSetup.GDName}}</td>
+                                <td>{{item.Customer.Name}}</td>
+                                <td>{{item.AddInventoryStock.CreatedBy}}</td>
+                                <td>{{item.DODate}}</td>
+                                <td>{{item.Validity}}</td>
+
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i> |
+                                    <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                                    <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

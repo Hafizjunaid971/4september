@@ -1,0 +1,402 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav>
+        <div class="my-2" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+            <div class="with-bg"></div>
+            <div>
+                <a>
+                    <img class="circle" src="./../../../assets/Deafult-Profile-Pitcher.png" width="100">
+                </a>
+            </div>
+        </div>
+        <div style="background-color: aliceblue !important;" class="mt-2 py-3" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="7px">
+            <div>
+                <a>
+                    <span class="lead">{{currentUser.Name}}</span>
+                </a>
+            </div>
+            <div>
+                <a>
+                    <span class="email">{{currentUser.Email}}</span>
+                </a>
+            </div>
+        </div>
+        <div class="mt-3">
+            <mat-nav-list>
+                <a mat-list-item class="ml-2" routerLink='/dashboard' (click)="onSidenavClose()">
+                    <mat-icon>home</mat-icon> <span class="nav-caption">Dashboard</span>
+                </a>
+            </mat-nav-list>
+
+
+
+            <mat-accordion *ngIf="currentUser.UserId === 'superadmin'">
+              <mat-expansion-panel class="no-shadow">
+                  <mat-expansion-panel-header fxLayout="row">
+                      <mat-panel-title>
+                          <mat-icon>stars</mat-icon> <span class="nav-caption">User & Agent Management</span>
+                      </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <mat-nav-list class="ml-0" dense>
+                      <a mat-list-item routerLink="/user-add/Add" (click)="onSidenavClose()">
+                          <mat-icon>add_box</mat-icon> <span class="nav-caption">Add User || Agent</span>
+                      </a>
+                      <a mat-list-item routerLink="/user-list" (click)="onSidenavClose()">
+                          <mat-icon>verified_use</mat-icon><span class="nav-caption">Manage User || Agent</span>
+                      </a>
+                  </mat-nav-list>
+              </mat-expansion-panel>
+          </mat-accordion>
+
+<!-- inventory stock setup grade etc -->
+
+
+
+<mat-accordion>
+  <mat-expansion-panel class="no-shadow">
+      <mat-expansion-panel-header fxLayout="row">
+          <mat-panel-title>
+              <mat-icon>stars</mat-icon> <span class="nav-caption">Inventory Setup</span>
+          </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <mat-accordion>
+          <mat-expansion-panel class="no-shadow">
+              <mat-expansion-panel-header fxLayout="row">
+                  <mat-panel-title>
+                      <mat-icon>add_circle_outline</mat-icon> <span class="nav-caption">Grade Setup</span>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-nav-list class="ml-0" dense>
+                  <a mat-list-item routerLink="/addgrade-add/Add" (click)="onSidenavClose()">
+                      <mat-icon>add_box</mat-icon> <span class="nav-caption">Add Grade</span>
+                  </a>
+                  <a mat-list-item routerLink="/addgrade-list" (click)="onSidenavClose()">
+                      <mat-icon>settings</mat-icon><span class="nav-caption">Manage Grade</span>
+                  </a>
+              </mat-nav-list>
+          </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+          <mat-expansion-panel class="no-shadow">
+              <mat-expansion-panel-header fxLayout="row">
+                  <mat-panel-title>
+                      <mat-icon>create</mat-icon> <span class="nav-caption">Stock inventory Setup</span>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-nav-list class="ml-0" dense>
+                  <a mat-list-item routerLink="/inventorystock-add/Add" (click)="onSidenavClose()">
+                      <mat-icon>add_box</mat-icon> <span class="nav-caption">Add Stock Inventory</span>
+                  </a>
+                  <a mat-list-item routerLink="/inventorystock-list" (click)="onSidenavClose()">
+                      <mat-icon>settings</mat-icon><span class="nav-caption">Manage Stock</span>
+                  </a>
+
+                  <!-- <a mat-list-item routerLink="/release-doagent-to-customer" (click)="onSidenavClose()">
+                    <mat-icon>description</mat-icon><span class="nav-caption">Manage Do Agent</span>
+                </a> -->
+
+
+              </mat-nav-list>
+          </mat-expansion-panel>
+      </mat-accordion>
+
+      <mat-accordion>
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header fxLayout="row">
+                <mat-panel-title>
+                    <mat-icon>local_grocery_store</mat-icon> <span class="nav-caption">DO Setup</span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="ml-0" dense>
+                <a mat-list-item routerLink="/release-doagent-to-customer" (click)="onSidenavClose()">
+                  <mat-icon>add_box</mat-icon><span class="nav-caption">Agent Do Setup</span>
+              </a>
+              <a mat-list-item routerLink="/agentdoreleasesetup-add" (click)="onSidenavClose()">
+                <mat-icon>card_giftcard</mat-icon><span class="nav-caption">Customer Do print</span>
+            </a>
+
+              <!-- <a mat-list-item routerLink="/agentdoreleasesetup-add/Add" (click)="onSidenavClose()">
+                <mat-icon>facebook</mat-icon><span class="nav-caption">Release Do for customer</span>
+            </a> -->
+            </mat-nav-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<!-- inventory stock etc -->
+
+          <!-- <mat-accordion *ngIf="currentUser.AgentType != 'Agent'"> -->
+
+          <mat-accordion>
+            <mat-expansion-panel class="no-shadow">
+                <mat-expansion-panel-header fxLayout="row">
+                    <mat-panel-title>
+                        <mat-icon>stars</mat-icon> <span class="nav-caption">Godown Setup </span>
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-nav-list class="ml-0" dense>
+                    <a mat-list-item routerLink="/godownsetup-add/Add" (click)="onSidenavClose()">
+                        <mat-icon>add_box</mat-icon> <span class="nav-caption">Add Godown</span>
+                    </a>
+                    <a mat-list-item routerLink="/godownsetup-list" (click)="onSidenavClose()">
+                        <mat-icon>settings</mat-icon><span class="nav-caption">Manage Godown</span>
+                    </a>
+                    <!-- <a mat-list-item routerLink="/placemenetstock-add/Add" (click)="onSidenavClose()">
+                      <mat-icon>start</mat-icon> <span class="nav-caption">Placement stock</span>
+                  </a> -->
+                  <!-- <a mat-list-item routerLink="/placemenetstock-list" (click)="onSidenavClose()">
+                      <mat-icon>description</mat-icon><span class="nav-caption">Godown Placement stock</span>
+                  </a> -->
+
+
+                </mat-nav-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- 6 september work -->
+        <mat-accordion *ngIf="currentUser.AgentType != 'Agent'">
+          <mat-expansion-panel class="no-shadow">
+              <mat-expansion-panel-header fxLayout="row">
+                  <mat-panel-title>
+                      <mat-icon>stars</mat-icon> <span class="nav-caption">Delivero Order Setup </span>
+                  </mat-panel-title>
+              </mat-expansion-panel-header>
+              <mat-nav-list class="ml-0" dense>
+                  <a mat-list-item routerLink="/dosetup-add/Add" (click)="onSidenavClose()">
+                      <mat-icon>add_box</mat-icon> <span class="nav-caption">Add DO</span>
+                  </a>
+                  <a mat-list-item routerLink="/dosetup-list" (click)="onSidenavClose()">
+                      <mat-icon>settings</mat-icon><span class="nav-caption">Manage DO</span>
+                  </a>
+              </mat-nav-list>
+          </mat-expansion-panel>
+      </mat-accordion>
+
+
+      <mat-accordion>
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header fxLayout="row">
+                <mat-panel-title>
+                    <mat-icon>stars</mat-icon> <span class="nav-caption">Return Delivery Order Setup </span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="ml-0" dense>
+                <a mat-list-item routerLink="/returndo-add/Add" (click)="onSidenavClose()">
+                    <mat-icon>add_box</mat-icon> <span class="nav-caption">Return Add DO</span>
+                </a>
+                <a mat-list-item routerLink="/returndo-list" (click)="onSidenavClose()">
+                    <mat-icon>settings</mat-icon><span class="nav-caption">Return Manage DO</span>
+                </a>
+            </mat-nav-list>
+        </mat-expansion-panel>
+    </mat-accordion>
+
+
+      <!-- <mat-accordion *ngIf="currentUser.AgentType != 'Agent'" >
+        <mat-expansion-panel class="no-shadow">
+            <mat-expansion-panel-header fxLayout="row">
+                <mat-panel-title>
+                    <mat-icon>stars</mat-icon> <span class="nav-caption">Party Setup </span>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-nav-list class="ml-0" dense>
+                <a mat-list-item routerLink="/party-add/Add" (click)="onSidenavClose()">
+                    <mat-icon>description</mat-icon> <span class="nav-caption">Party Add</span>
+                </a>
+                <a mat-list-item routerLink="/party-list" (click)="onSidenavClose()">
+                    <mat-icon>description</mat-icon><span class="nav-caption">Manage Party</span>
+                </a>
+            </mat-nav-list>
+        </mat-expansion-panel>
+    </mat-accordion> -->
+        <!-- 6 september added -->
+
+            <!-- <mat-accordion>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Product Setup</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/price-list-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Add Product</span>
+                        </a>
+                        <a mat-list-item routerLink="/price-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Product</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+            <!-- <mat-accordion>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Product Inventory</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/product-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Add Product Inventory</span>
+                        </a>
+                        <a mat-list-item routerLink="/product-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Product Inventory</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+            <!-- <mat-accordion>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Sales Invoice</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/invoice-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Generate Invoice</span>
+                        </a>
+                        <a mat-list-item routerLink="/invoice-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Invoice</span>
+                        </a>
+                        <a mat-list-item routerLink="/return-invoice-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Generate Return Invoice</span>
+                        </a>
+                        <a mat-list-item routerLink="/return-invoice-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Return Invoice</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+<!--
+            <mat-accordion *ngIf="currentUser.AgentType != 'Agent'">
+              <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Purchase Invoice</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/purchaseinvoice-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Add Purchase Invoice</span>
+                        </a>
+                    </mat-nav-list>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/purchaseinvoice-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Purchase Invoice</span>
+                        </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+            <mat-accordion *ngIf="currentUser.AgentType != 'Agent'">
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Customer</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/customer-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Add Customer</span>
+                        </a>
+                        <a mat-list-item routerLink="/customer-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Customer</span>
+                        </a>
+                        <!-- <a mat-list-item routerLink="/customer-invoices" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Customer Invoice</span>
+                        </a> -->
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <!-- <mat-accordion *ngIf="currentUser.AgentType != 'Agent'">
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Vendor</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/vendor-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Add Vendor</span>
+                        </a>
+                        <a mat-list-item routerLink="/vendor-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Vendor</span>
+                        </a>
+                        <a mat-list-item routerLink="/purchase-invoice-add/Add" (click)="onSidenavClose()">
+                          <mat-icon>description</mat-icon> <span class="nav-caption">Vendor pupchae invoice</span>
+                      </a>
+                      <a mat-list-item routerLink="/vendorledger-list" (click)="onSidenavClose()">
+                        <mat-icon>description</mat-icon> <span class="nav-caption">Manage Vendor Ledger</span>
+                    </a>
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+            <!-- <mat-accordion>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Expenses</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/expense-add/Add" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">Add Expense Type</span>
+                        </a>
+                        <a mat-list-item routerLink="/expense-list" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">Manage Expense Type</span>
+                        </a>
+
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+            <!-- <mat-accordion>
+                <mat-expansion-panel class="no-shadow">
+                    <mat-expansion-panel-header fxLayout="row">
+                        <mat-panel-title>
+                            <mat-icon>stars</mat-icon> <span class="nav-caption">Ledger</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-nav-list class="ml-0" dense>
+                        <a mat-list-item routerLink="/account-ledger" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon> <span class="nav-caption">View Customer Ledger</span>
+                        </a>
+
+                        <a mat-list-item routerLink="/expense-ledger" (click)="onSidenavClose()">
+                            <mat-icon>description</mat-icon><span class="nav-caption">View Expense Ledger</span>
+                        </a>
+                        <a mat-list-item routerLink="/vendor-ledger" (click)="onSidenavClose()">
+                          <mat-icon>description</mat-icon> <span class="nav-caption">View Vendor Ledger Ledger</span>
+                      </a>
+
+                    </mat-nav-list>
+                </mat-expansion-panel>
+            </mat-accordion> -->
+
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <mat-toolbar color="primary" class="header-box-shadow">
+            <button mat-icon-button (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <button mat-button routerLink='/dashboard'>
+                <mat-icon class="mr-1">home</mat-icon>
+                Dashboard
+            </button>
+
+            <button mat-icon-button style="margin-left: auto;" title="Logout" (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+            </button>
+        </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>

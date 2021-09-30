@@ -1,0 +1,198 @@
+
+
+
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #ReturnSetupAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View return Do Setup </h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate Return Do Setup</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Return Do Setup </h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Return Do Setup </h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+
+
+
+                        <!-- <label class="col-sm-2 col-form-label">Serial Number</label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="dosetupList" name="SNO" bindLabel="SNO" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select S.No"  [disabled]="DeleteMode || ViewMode" required="true">
+                          </ng-select>
+                      </div> -->
+
+                      <label class="col-sm-2 col-form-label">Serial Number</label>
+                      <div class="col-sm-2">
+                          <input autocomplete="off" class="form-control" name="serialnumber" type="text" title="serialnumber" [(ngModel)]="RETURNDO.serialnumber" placeholder="Serial number"  />
+                      </div>
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Lot Number </label>
+                        <div class="col-sm-2">
+                          <ng-select [items]="dosetupList" name="LOTNumber" bindLabel="AddInventoryStock.LOTNumber" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select Lot Number" [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                          </ng-select>
+                      </div>
+
+                      <label class="col-sm-2 col-form-label">Grade /Product </label>
+                      <div class="col-sm-2">
+                        <ng-select [items]="dosetupList" name="GradeName" bindLabel="AddInventoryStock.AddGrade.GradeName" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select Grade" [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                        </ng-select>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Godown Name </label>
+                    <div class="col-sm-2">
+                      <ng-select [items]="dosetupList" name="GDName" bindLabel="AddInventoryStock.GodownSetup.GDName" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select Godown" [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true" [readonly]="true">
+                      </ng-select>
+                  </div>
+                    <label class="col-sm-2 col-form-label">Agent Name </label>
+                    <div class="col-sm-2">
+                      <ng-select [items]="dosetupList" name="CreatedBy" bindLabel="AddInventoryStock.CreatedBy" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select Agent Name" [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                      </ng-select>
+                  </div>
+                  <label class="col-sm-2 col-form-label">Customer Name</label>
+                  <div class="col-sm-2">
+                    <ng-select [items]="dosetupList" name="Name" bindLabel="Customer.Name" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Select Customer"  [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                    </ng-select>
+                </div>
+                <label class="col-sm-2 col-form-label">Quantity</label>
+                <div class="col-sm-2">
+                  <ng-select [items]="dosetupList" name="Quantity" bindLabel="Quantity3" [(ngModel)]="RETURNDO.DOSETUP" placeholder="Quantity"  [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                  </ng-select>
+              </div>
+
+
+<!--
+                <label class="col-sm-2 col-form-label">Reverse Quantity</label>
+                <div class="col-sm-2">
+                    <input autocomplete="off" name="ReturnQuantity" [disabled]="DeleteMode || ViewMode" class="form-control input-group-lg" required type="number" title="ReturnQuantity"  [(ngModel)]="RETURNDO.ReturnQuantity" placeholder="Enter ReturnQuantity" required="true"
+                    />
+                </div> -->
+
+
+
+                <!-- Return order Details -->
+                <div class="table-responsive-sm margin-top-25">
+                  <table id="myTable" class="table css-serial" width="100%">
+                      <thead>
+                          <tr>
+                              <th>#</th>
+                              <th scope="col">Select Stock in Lot Number Godown</th>
+                              <th scope="col">Available Stock</th>
+                              <th scope="col">Return Quantity</th>
+                              <th scope="col">Current Available Stock</th>
+                              <th scope="col">DODate</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td></td>
+                              <td>
+                                <ng-select [items]="inventstockList" name="LOTNumberr" bindLabel="LOTNumber" [(ngModel)]="RETURNDO.AddInventoryStock" placeholder="Select Lot Number" [disabled]="DeleteMode || ViewMode" required="true" >
+                                </ng-select>
+                              </td>
+                              <td>
+                                <ng-select [items]="inventstockList" name="Quantity" bindLabel="Quantity" [(ngModel)]="RETURNDO.AddInventoryStock" placeholder="Select Quantity" [disabled]="DeleteMode || ViewMode" required="true" [readonly]="true">
+                                </ng-select>
+                              </td>
+                              <td><input autocomplete="off" name="ReturnQuantity" class="form-control input-group-md" type="number" title="Enter Quantity" (change)=CalculateStock() [(ngModel)]="RETURNDO.ReturnQuantity" placeholder="Enter Quantity To return"  [disabled]="DeleteMode || ViewMode" />
+                              </td>
+                              <td><input autocomplete="off" name="ReturnBalance" class="form-control input-group-md" type="number" title="Enter ReturnBalance"  [(ngModel)]="RETURNDO.ReturnBalance" placeholder="Enter ReturnBalance"  [disabled]="DeleteMode || ViewMode" [readOnly]="true"/>
+                              </td>
+                              <td><input autocomplete="off" name="DODate"  theme="dp-material" [dpDayPicker]="config" class="form-control input-group-md" type="text" title="Enter date" [(ngModel)]="RETURNDO.Date" placeholder="date"  [disabled]="DeleteMode || ViewMode" />
+                              </td>
+
+
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+
+
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="RETURNDO.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="RETURNDO.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="RETURNDO.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="RETURNDO.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!ReturnSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(RETURNDO)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!ReturnSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(RETURNDO)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!ReturnSetupAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(RETURNDO)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

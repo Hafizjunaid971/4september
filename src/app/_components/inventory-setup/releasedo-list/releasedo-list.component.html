@@ -1,0 +1,126 @@
+<app-sidenav></app-sidenav>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Seriol Number">
+                    </div>
+                    <div class="col-xs-3">
+                      <input type="text" class="form-control input-group-lg" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Godown Name">
+                  </div>
+                   <div class="col-xs-3">
+                    <input type="text" class="form-control input-group-lg" id="searchTextId3" [(ngModel)]="searchText3" name="searchText3" placeholder="Search By Customer Name">
+                </div>
+                <div class="col-xs-3">
+                  <input type="text" class="form-control input-group-lg" id="searchTextId4" [(ngModel)]="searchText4" name="searchText4" placeholder="Search By Quantity">
+              </div>
+                </div>
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Print Delivery Orders</h3>
+                </div>
+                <div class="table-responsive-sm margin-top-25">
+                    <table class="table">
+                        <thead>
+                                <!-- <th>#</th>
+                                <th>S.NO</th>
+                                <th>Quantity</th>
+                                <th>Lot Number</th>
+                                <th>Grade</th>
+                                <th>Godown name</th>
+                                <th>Customer Name</th>
+                                <th>Agent Name</th>
+                                <th>DO Date</th>
+                                <th>Validity</th>
+                                <th>Status</th>
+                                <th>Action</th> -->
+
+                                <th>#</th>
+                                <th>S.NO</th>
+                                <!-- <th>Stock Quantity</th> -->
+                                <!-- <th>Do Send Quantity</th>
+                                <th>Availabe Stock</th> -->
+                                <th>Lot Number</th>
+                                <th>Grade</th>
+                                <th>Godown name</th>
+                                <th>Customer Name</th>
+                                <th>Agent Name</th>
+                                <th>DO Date</th>
+                                <th>Validity</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                        </thead>
+                        <tbody *ngFor="let item of pagedItems | searchDOSETUPList: searchText | searchDOSETUPList2: searchText2 | searchDOSETUPList3: searchText3  let i = index">
+                          <!-- *ngIf="currentUser.AgentType != 'Agent'" -->
+                          <!-- *ngIf="currentUser.UserId==item.AddInventoryStock.CreatedBy" -->
+                          <tr *ngIf="currentUser.UserId==item.AddInventoryStock.CreatedBy || currentUser.UserId === 'superadmin'" >
+                            <td>{{i+001}}</td>
+                              <!-- <td>{{item.SNO}}</td> -->
+                              <td>{{item.serialnumber}}</td>
+                              <!-- <td>{{item.AddInventoryStock.Quantity}}</td> -->
+                              <!-- <td>{{item.Quantity2}}</td>
+                              <td>{{item.Denomation}}</td> -->
+                              <td>{{item.AddInventoryStock.LOTNumber}}</td>
+                              <td>{{item.AddInventoryStock.AddGrade.GradeName}}</td>
+                              <td>{{item.AddInventoryStock.GodownSetup.GDName}}</td>
+                              <td>{{item.Customer.Name}}</td>
+                              <td>{{item.AddInventoryStock.CreatedBy}}</td>
+                              <td>{{item.DODate}}</td>
+                              <td>{{item.Validity}}</td>
+
+
+                              <!-- <td>
+                                <div *ngIf="!item.Denomation == '0'"><button style="pointer-events: none" class="btn btn-danger">UnReleased</button></div>
+                                <div *ngIf="item.Denomation == '0'"><button style="pointer-events: none" class="btn btn-success">Released</button></div>
+                            </td>
+                            <td>
+                                <i class="fa fa-eye view" (click)="View(item)"></i>
+                                <span *ngIf="!item.Denomation == '0'"> | <i class="fa fa-edit edit" (click)="Edit(item)"></i></span>
+                                <span *ngIf="!item.Denomation == '0'"> | <i class="fa fa-trash-o delete" (click)="Delete(item)"></i></span>
+
+                            </td> -->
+                            <td>
+                              <div *ngIf="item.Rao !=item.Quantity3"><button style="pointer-events: none" class="btn btn-danger">UnReleased</button></div>
+                              <div *ngIf="item.Rao ==item.Quantity3"><button style="pointer-events: none" class="btn btn-success">Released</button></div>
+                          </td>
+                          <td>
+                              <i class="fa fa-eye view" (click)="View(item)"></i>
+                              <span> | <i class="fa fa-edit edit" (click)="Edit(item)"></i></span>
+                              <!-- <span *ngIf="item.Denomation2 != '0'"> | <i class="fa fa-trash-o delete" (click)="Delete(item)"></i></span> -->
+
+                          </td>
+
+                              <!-- <td>
+                              <i class="fa fa-eye view" (click)="View(item)"></i> |
+                              <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                              <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td> -->
+
+                            </tr>
+                              </tbody>
+                              </table>
+                              </div>
+
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

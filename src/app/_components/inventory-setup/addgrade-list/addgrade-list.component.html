@@ -1,0 +1,66 @@
+<app-sidenav></app-sidenav>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Grade">
+                    </div>
+                </div>
+
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Grade List</h3>
+                </div>
+
+
+                <div class="table-responsive-sm margin-top-25">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Add Grade</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngFor="let item of pagedItems | searchAddGradeList: searchText; let i = index">
+                          <!-- *ngIf="currentUser.UserId==item.CreatedBy" -->
+                            <tr *ngIf="currentUser.UserId==item.CreatedBy" >
+                                <td>{{i+1}}</td>
+                                <td>{{item.GradeName}}</td>
+                                <td>{{item.CreatedBy}}</td>
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i> |
+                                    <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                                    <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

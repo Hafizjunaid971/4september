@@ -1,0 +1,100 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+
+                <div class="col-xs-3">
+                    <input type="text" class="form-control input-group-lg" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Lot Number Number">
+                </div>
+                <div class="col-xs-2">
+                  <input type="text" class="form-control input-group-lg" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Grade name">
+              </div>
+               <div class="col-xs-3">
+                <input type="text" class="form-control input-group-lg" id="searchTextId3" [(ngModel)]="searchText3" name="searchText3" placeholder="Search By Godown Name">
+            </div>
+            <div class="col-xs-2">
+              <input type="text" class="form-control input-group-lg" id="searchTextId4" [(ngModel)]="searchText4" name="searchText4" placeholder="Search By Quantity">
+          </div>
+          <div class="col-xs-2">
+            <input type="text" class="form-control input-group-lg" id="searchTextId5" [(ngModel)]="searchText5" name="searchText5" placeholder="Search By Created By">
+        </div>
+
+
+                <div class="form-group col-xs-12"></div><br><br><br>
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> inventory Stock In</h3>
+                </div><br><br>
+
+                <div class="table-responsive-sm">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th scope="col">Lot Number </th>
+                                <th scope="col">Godown name</th>
+                                <th scope="col">Grade name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">ID</th>
+                                <th scop="col">LC</th>
+                                <th scop="col">BL</th>
+                                <th scop="col">GD</th>
+                                <th scope="col">Shipper Name</th>
+                                <th scope="col">Created BY</th>
+                              <th scop="col">Action</th>
+
+                            </tr>
+                        </thead>
+                        <!-- <tbody *ngFor="let item of pagedItems | searchAddInventoryList: searchText | searchAddInventoryList2: searchText2 | searchAddInventoryList3: searchText3 | searchAddInventoryList4: searchText4 | searchAddInventoryList5: searchText5; let i = index"> -->
+
+                        <tbody *ngFor="let item of pagedItems; let i = index">
+                          <!-- *ngIf="currentUser.UserId==item.AddInventoryStock.CreatedBy" -->
+                          <tr *ngIf="currentUser.UserId==item.CreatedBy || currentUser.UserId=== 'superadmin'">
+                            <td>{{i+1}}</td>
+                                <td>{{item.LOTNumber}}</td>
+                                <td>{{item.GodownSetup.GDName}}</td>
+                                <td>{{item.AddGrade.GradeName}}</td>
+                                <td>{{item.Quantity}}</td>
+                              <td>{{item.IDStock}}</td>
+                              <td>{{item.LCStock}}</td>
+                              <td>{{item.BLStock}}</td>
+                              <td>{{item.GDStock}}</td>
+                              <td>{{item.ShiperName}}</td>
+                              <td>{{item.CreatedBy}}</td>
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i> |
+                                    <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                                    <i class="fa fa-trash-o delete" (click)="Delete(item)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- pager -->
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

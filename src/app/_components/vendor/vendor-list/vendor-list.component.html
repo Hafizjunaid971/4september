@@ -1,0 +1,92 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="main-body">
+            <div class="sub-body">
+
+                <div class="form-group row">
+                    <!-- <div class="col-sm-12">
+                        <input type="text" class="form-control input-group-lg" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Vendor Name">
+                    </div> -->
+                </div>
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Vendor List</h3>
+                </div>
+
+                <div class="table-responsive-sm margin-top-25">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name</th>
+                                <th>Vendor Company Name</th>
+                                <th>Vendor Deals In</th>
+                                <th>Company Phone</th>
+                                <th>Country</th>
+                                <th>City</th>
+                                <th>Address 1</th>
+                                <th>Address 2</th>
+                                <th>Email Address</th>
+                                <th>Contact Person Name 1</th>
+                                <th>Contact 1</th>
+                                <th>Contact Person Name 2</th>
+                                <th>Contact 2</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pagedItems; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.CompanyName}}</td>
+                                <td>
+                                  {{item.Product.Name}},
+                                  <!-- <button ng-click="show= true" class="btn btn-info">read more</button> -->
+                                    {{item.Product.Category}},
+                                    {{item.Product.Code}}
+                                </td>
+                                <td>{{item.CompanyPhone}}</td>
+                                <td>{{item.Country}}</td>
+                                <td>{{item.City}}</td>
+                                <td>{{item.Address1}}</td>
+                                <td>{{item.Address2}}</td>
+                                <td>{{item.EmailAddress}}</td>
+                                <td>{{item.ContactPersonName1}}</td>
+                                <td>{{item.Contact1}}</td>
+                                <td>{{item.ContactPersonName2}}</td>
+                                <td>{{item.Contact2}}</td>
+
+
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i> |
+                                    <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                                    <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

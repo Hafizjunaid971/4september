@@ -1,0 +1,74 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+                <div class="col-xs-6">
+                    <input autocomplete="off" type="text" class="form-control input-group-lg" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By User ID">
+                </div>
+                <div class="col-xs-6">
+                    <input autocomplete="off" type="text" class="form-control input-group-lg" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Name">
+                </div>
+
+                <div class="form-group col-xs-12"></div><br><br><br>
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> User List</h3>
+                </div><br><br>
+
+                <div class="table-responsive">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>User ID</th>
+                                <th>Type</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pagedItems let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.UserId}}</td>
+                                <td>{{item.AgentType}}</td>
+                                <td>{{item.Name}}</td>
+                                <td>{{item.Email}}</td>
+                                <td>
+                                    <div *ngIf="item.IsActive === false"><button style="pointer-events: none" class="btn btn-danger">Deactivated</button></div>
+                                    <div *ngIf="item.IsActive === true"><button style="pointer-events: none" class="btn btn-success">Activatived</button></div>
+                                </td>
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i> |
+                                    <i class="fa fa-edit edit" (click)="Edit(item)"></i> |
+                                    <i class="fa fa-trash-o delete" (click)="Delete(item)"></i> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,132 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <form #UserAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View User</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New User</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit User</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete User</h3>
+                    </div>
+                    <div class="input-group">
+                        <div class="row mt-0">
+
+                            <div class="pl-0 col-xs-3">
+                                <label>User ID</label>
+                                <input autocomplete="off" class="form-control input-group-lg" required name="UserId" type="text" title="Enter User ID" [(ngModel)]="User.UserId" placeholder="Enter User ID" [readonly]="DeleteMode || ViewMode" maxlength="50" />
+                            </div>
+                            <div class="pl-0 col-xs-3">
+                              <label>Type</label>
+                              <ng-select [items]="AgentType" [disabled]="DeleteMode || ViewMode" name="Type" [(ngModel)]="User.AgentType" required placeholder="Select Type">
+                              </ng-select>
+                          </div>
+                            <div class="pl-0 col-xs-3">
+                                <label>Name</label>
+                                <input autocomplete="off" class="form-control input-group-lg" required name="Name" type="text" title="Enter Name" [(ngModel)]="User.Name" placeholder="Enter Name" [readonly]="DeleteMode || ViewMode" maxlength="50" />
+                            </div>
+
+                            <div class="pl-0 col-xs-3">
+                                <label>Email</label>
+                                <input autocomplete="off" name="Email" class="form-control input-group-lg" required type="email" title="Enter Email" [(ngModel)]="User.Email" placeholder="Enter Email" [readonly]="DeleteMode || ViewMode" maxlength="50" />
+                            </div>
+
+                            <div class="pl-0 col-xs-4 margin-top-30">
+                                <label *ngIf="EditMode">New Password</label>
+                                <label *ngIf="AddMode || DeleteMode || ViewMode">Password</label>
+                                <input autocomplete="off" name="Password" class="form-control input-group-lg" required type="password" title="Enter Password" [(ngModel)]="User.Password" placeholder="Enter Password" [readonly]="DeleteMode || ViewMode" maxlength="50" />
+                            </div>
+
+                            <div class="pl-0 col-xs-4 margin-top-30">
+                                <label>User Rights</label>
+                                <ng-select [items]="RightsList" [disabled]="DeleteMode || ViewMode" multiple="true" name="UserRights" [(ngModel)]="User.UserRights" required placeholder="Select User Rights">
+                                </ng-select>
+                            </div>
+
+                            <div class="pl-0 col-xs-4 margin-top-30">
+                                <label>User Activated</label>
+                                <div class="checkbox" style="margin-top: 0px;">
+                                    <label><input style="cursor: pointer;width: 30px;height: 30px;" type="checkbox" autocomplete="off" name="IsActive" [(ngModel)]="User.IsActive" [readonly]="DeleteMode || ViewMode"></label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header style="background-color: #f0f1f3 !important;">
+                                    <mat-panel-title style="font-weight: 500;">
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="pl-0 col-xs-3 margin-top-30">
+                                    <label>Created By </label>
+                                    <input autocomplete="off" class="form-control input-group-lg" readonly=true name="CreatedBy" type="text" title="Created By" [(ngModel)]="User.CreatedBy" placeholder="Created By" />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30">
+                                    <label>Created Date </label>
+                                    <input autocomplete="off" class="form-control input-group-lg" readonly=true name="CreatedDate" type="text" title="Created Date" [(ngModel)]="User.CreatedDate" placeholder="Created Date" />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30">
+                                    <label>Modified By </label>
+                                    <input autocomplete="off" class="form-control input-group-lg" readonly=true name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="User.ModifiedBy" placeholder="Modified By" />
+                                </div>
+
+                                <div class="pl-0 col-xs-3 margin-top-30">
+                                    <label>Modified Date </label>
+                                    <input autocomplete="off" class="form-control input-group-lg" readonly=true name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="User.ModifiedDate" placeholder="Modified Date" />
+                                </div><br><br><br><br><br>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="d-flex my-4">
+                        <div class="form-group mr-2" *ngIf="AddMode">
+                            <button [disabled]="!UserAddForm.valid" class="btn btn-primary" (click)="Save(User)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="form-group mr-2" *ngIf="EditMode">
+                            <button [disabled]="!UserAddForm.valid" class="btn btn-primary" (click)="Update(User)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="form-group mr-2" *ngIf="DeleteMode">
+                            <button [disabled]="!UserAddForm.valid" class="btn btn-primary" (click)="Delete(User)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

@@ -1,0 +1,76 @@
+<mat-dialog-content>
+  <mat-dialog-actions>
+      <button style="color: #fff;background-color: #d9534f;border-color: #d43f3a;border: #fff;" mat-raised-button printSectionId="print-section" ngxPrint>Print Order</button>
+      <button style="color: #fff;background-color: #5cb85c;border-color: #4cae4c;border: #fff;" mat-raised-button (click)="closeMe()">Close</button>
+  </mat-dialog-actions>
+
+  <div id="print-section">
+      <h1 mat-dialog-title style="text-align: center;font-family: Arial, Helvetica, sans-serif;">DELIVERY ORDER
+      </h1>
+      <table class="table" style="margin-right: auto;width: 100%;text-align: center;">
+        <thead>
+            <tr>
+                <th style="text-align: center;" scope="col">S.NO: <u>{{data.info.serialnumber}}</u></th>
+                <th style="text-align: center;" scope="col">DATE: <u>{{data.info.AgentDate}}</u> </th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+      <br>
+
+      <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"> <b>Godown Name:</b> &nbsp;&nbsp;&nbsp;{{data.info.AddInventoryStock.GodownSetup.GDName}}</h5>
+      <!-- <h4><u>{{data.info.AddInventoryStock.GodownSetup.GDName}}</u></h4> -->
+
+
+      <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"><b style="border-bottom: none;">DELIVER YO M/S:</b> &nbsp;&nbsp;&nbsp; {{data.info.Customer.Name}} </h5>
+      <h5 style="font-weight: 500;font-size: 21px; border-bottom: 1px solid black; width:100%"><b>LOT NUMBER:</b> &nbsp;&nbsp;&nbsp; {{data.info.AddInventoryStock.LOTNumber}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>GRADE:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data.info.AddInventoryStock.AddGrade.GradeName}} </h5>
+      <h5 style="font-weight: 500; font-size: 21px; border-bottom: 1px solid black; width:100%"><b>Total Quantity:</b> &nbsp;&nbsp;&nbsp; {{data.info.Quantity3}} </h5>
+      <h5 style="font-weight: 500;font-size: 21px; border-bottom: 1px solid black; width:100%"><b>D/O VALIDITY:</b> &nbsp;&nbsp;&nbsp; {{data.info.Validity}}</h5>
+      <h4 style="font-weight: 500;">DENOMATION DETAILS</h4>
+
+
+
+
+
+
+
+
+      <table id="table3" class="table" style="margin-left: 0;border: 1px solid black;border-collapse: collapse; width: 600px; height: auto;">
+          <tbody>
+<tr style="padding: 5px 0px 5px 0px;">
+
+<td style="border: 1px solid black;border-collapse: collapse;font-size: 16px;font-weight: 600; font-size: 21px;">#
+</td>
+<td style="border: 1px solid black;border-collapse: collapse;font-size: 16px;font-weight: 600; font-size: 21px;">Denomation
+</td>
+<td style="border: 1px solid black;border-collapse: collapse;font-size: 16px;font-weight: 600; font-size: 21px;">Signature
+</td>
+</tr>
+            <tr *ngFor="let item of data.info.DOSETUPDETAILS; let i = index">
+              <td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 18px;font-weight: 600;">{{i+1}}</td>
+              <td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 18px;font-weight: 600;">
+                  {{item.Quantity2}}</td>
+                  <td style="text-align: center;border: 1px solid black;border-collapse: collapse;font-size: 18px;font-weight: 600;">
+                    </td>
+          </tbody>
+      </table>
+
+      <table class="table" style="margin-right: auto;width: 100%;text-align: center;">
+          <thead>
+              <tr>
+                <br><br><br>
+                  <th style="text-align: center;" scope="col">__________________________</th>
+
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td> <strong>AUTHORIZER SIGN</strong></td>
+                  <!-- <td> <strong>DISTRIBUTOR SIGN</strong></td> -->
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</mat-dialog-content>

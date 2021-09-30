@@ -1,0 +1,45 @@
+<div class="login-wrapper body" fxLayout="row" fxLayoutAlign="center center">
+    <mat-card class="box">
+        <mat-card-header>
+            <mat-card-title>Register</mat-card-title>
+        </mat-card-header>
+
+        <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="register(registerForm.value)" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+
+            <mat-card-content>
+
+                <mat-form-field class="example-full-width">
+                    <input autocomplete="off" matInput type="text" placeholder="Name" formControlName="name" id="name">
+                    <mat-error *ngIf="hasError('name', 'required')">Name is required</mat-error>
+                    <mat-error *ngIf="hasError('name', 'maxlength')">You have more than 20 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input autocomplete="off" matInput type="text" placeholder="Email" formControlName="email" id="email">
+                    <mat-error *ngIf="hasError('email', 'required')">Email is required</mat-error>
+                    <mat-error *ngIf="hasError('email', 'maxlength')">You have more than 35 characters</mat-error>
+                    <mat-error *ngIf="hasError('email', 'email')">Please enter valid email address</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input autocomplete="off" matInput type="text" placeholder="User ID" formControlName="userId" id="userId">
+                    <mat-error *ngIf="hasError('userId', 'required')">User Id is required</mat-error>
+                    <mat-error *ngIf="hasError('userId', 'maxlength')">You have more than 15 characters</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <input autocomplete="off" matInput type="password" placeholder="Password" formControlName="password" id="password">
+                    <mat-error *ngIf="hasError('password', 'required')">Password is required</mat-error>
+                    <mat-error *ngIf="hasError('password', 'minlength')">Password requires more than 6 characters</mat-error>
+                    <mat-error *ngIf="hasError('password', 'maxlength')">You have more than 15 characters</mat-error>
+                </mat-form-field>
+
+            </mat-card-content>
+
+            <mat-card-actions align="center">
+                <button mat-raised-button color="primary" [disabled]="!registerForm.valid">Register</button>
+            </mat-card-actions>
+
+        </form>
+    </mat-card>
+</div>

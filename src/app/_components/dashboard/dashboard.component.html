@@ -1,0 +1,242 @@
+<app-sidenav></app-sidenav>
+
+<div class="content-area py-1">
+    <div class="container-fluid">
+        <h2 class="text-xs-center"><i class="fa heading-icon fa-bar-chart"></i> <span style="color: orange;">SK</span> <span style="color: red;"> Enter</span><span style="color: orange;"> Prise</span> </h2>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block tile tile-2 bg-danger mb-2">
+                    <div class="t-icon right"><i class="ti-stats-up" style="color: #fff;"></i></div>
+                    <div class="t-content">
+                        <h3 class="mb-1">Inventory  Stock</h3>
+                        <h2>{{result[4].TotalStock}}</h2>
+                        <h6 class="text-uppercase">Total Inventory Stock</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block tile tile-2 bg-primary mb-2">
+                    <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                    <div class="t-content">
+                        <h3 class="mb-1">Total Customers </h3>
+                        <h2>{{result[5].TotalCustomer}}</h2>
+                        <h6 class="text-uppercase">Total Customer</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block tile tile-2 bg-warning mb-2">
+                    <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                    <div class="t-content">
+                        <h3 class="mb-1">Total Grade || Product</h3>
+                        <h2>{{result[6].TotalGrade}}</h2>
+                        <h6 class="text-uppercase">Total Grade</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block tile tile-2 bg-success mb-2">
+                    <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                    <div class="t-content">
+                        <h3 class="mb-1">Total Godown</h3>
+                        <h2>{{result[7].TotalGodown}}</h2>
+                        <h6 class="text-uppercase">Total Godown</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2nd row -->
+
+
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="dashboard-box box-block tile tile-2 bg-danger mb-2">
+                  <div class="t-icon right"><i class="ti-stats-up" style="color: #fff;"></i></div>
+                  <div class="t-content">
+                      <h3 class="mb-1">Total Agent </h3>
+                      <h2>{{result[8].TotalAgent}}</h2>
+                      <h6 class="text-uppercase">Total Agent</h6>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="dashboard-box box-block tile tile-2 bg-primary mb-2">
+                  <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                  <div class="t-content">
+                      <h3 class="mb-1">Total Delivery Order </h3>
+                      <h2>{{result[9].TotalDelever}}</h2>
+                      <h6 class="text-uppercase">Total Deliveru order Send</h6>
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="dashboard-box box-block tile tile-2 bg-warning mb-2">
+                  <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                  <div class="t-content">
+                      <h3 class="mb-1">Total Return Order</h3>
+                      <h2>{{result[10].TotalReturn}}</h2>
+                      <h6 class="text-uppercase">Total Return Order</h6>
+                  </div>
+              </div>
+          </div>
+          <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+              <div class="dashboard-box box-block tile tile-2 bg-success mb-2">
+                  <div class="t-icon right"><i class="ti-bar-chart" style="color: #fff;"></i></div>
+                  <div class="t-content">
+                      <h3 class="mb-1">Total Godown</h3>
+                      <h2>{{result[7].TotalGodown}}</h2>
+                      <h6 class="text-uppercase">Total Godown</h6>
+                  </div>
+              </div>
+          </div> -->
+      </div>
+
+        <!-- 2nd row end -->
+
+        <div class="row">
+            <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-danger"><i class="ti-receipt"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">InvenTory Stocks</h6>
+                        <h2 class="mb-0">{{result[4].TotalStock}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-success"><i class="ti-bar-chart"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Customers</h6>
+                        <h2 class="mb-0">{{result[5].TotalCustomer}}</h2>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-primary"><i class="ti-shopping-cart-full"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Grade</h6>
+                        <h2 class="mb-0">{{result[6].TotalGrade}}</h2>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-warning"><i class="ti-shopping-cart-full"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Godown</h6>
+                        <h2 class="mb-0">{{result[7].TotalGodown}}</h2>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+
+
+
+
+
+
+        <!-- <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-success"><i class="ti-user"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Agent | User</h6>
+                        <h2 class="mb-0">{{result[8].TotalAgent}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-success"><i class="ti-user"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Delevery order Send</h6>
+                        <h2 class="mb-0">{{result[9].TotalDelever}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                <div class="dashboard-box box-block bg-white tile tile-4 mb-2">
+                    <div class="t-icon left bg-primary"><i class="ti-shopping-cart-full"></i></div>
+                    <div class="t-content text-xs-right">
+                        <h6 class="text-uppercase">Total Return Orders</h6>
+                        <h2 class="mb-0">{{result[10].TotalReturn}}</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div> -->
+
+<!--
+        <div class="row row-md mb-2">
+            <div class="col-md-6">
+                <div class="dashboard-box box-block bg-white">
+                    <h5 class="t-content text-xs-center">365 Days Sales chart</h5>
+
+                    <div class="chart-container">
+                        <google-chart #chart [title]="title" [type]="type" [data]="data" [columnNames]="columnNames" [options]="options" [width]="width" [height]="height">
+                        </google-chart>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="dashboard-box bg-white">
+                    <div class="box-block clearfix">
+                        <h5 class="float-xs-left">Recent Invoices</h5>
+                    </div>
+
+                    <div class="table-responsive-sm">
+                        <table id="myTable" class="table css-serial">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Customer</th>
+                                    <th>Comapny</th>
+                                    <th>Invoice No.</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of invoiceList; let i = index">
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.Company.Name}}</td>
+                                    <td>{{item.Company.CompanyName}}</td>
+                                    <td>{{item.InvoiceNumber}}</td>
+                                    <td>{{item.InvoiceDate}}</td>
+                                    <td>{{item.NetAmount}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<br>
+<br><br><br><br><br>
+<div id="copyright" class="copyright-main">
+    <div class="">
+        <div class="">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h6 class="copy-title">Copyright &copy; {{currentYear}} TechInventory - Inventory Management System. Design and Developed By : <a target="_blank" href="http://www.techempireltd.com/">TechEmpire Pvt. Ltd</a>
+                </h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+

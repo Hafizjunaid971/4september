@@ -1,0 +1,121 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+
+    <div class="col-xs-12">
+        <form #DesignLedgerForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Vendor Ledger</h3>
+                        <h6>You can view ledger upto 30 Days</h6>
+                    </div>
+                    <div class="input-group margin-top-30">
+                        <div class="row mt-0">
+                            <div class="pl-0 col-xs-3">
+                                <label>To Date</label>
+                                <input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control" name="toDate" type="text" [(ngModel)]="toDate" placeholder="Select To Date" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-3">
+                                <label>From Date</label>
+                                <input autocomplete="off" theme="dp-material" [dpDayPicker]="config" class="form-control" name="fromDate" type="text" [(ngModel)]="fromDate" placeholder="Select From Date" required="true" />
+                            </div>
+
+                            <div class="pl-0 col-xs-3">
+                                <label>Vendor</label>
+                                <ng-select [items]="vendorList" name="vendor" bindLabel="Vendor" [(ngModel)]="vendor" placeholder="Select Vendor">
+                                </ng-select>
+                            </div>
+                        </div>
+
+                        <div class="d-flex my-4">
+
+                            <div class="form-group mr-2">
+                                <button class="btn btn-primary" (click)="GetVendorLedger()" [disabled]="!DesignLedgerForm.valid">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Fetch Record
+                                </button>
+                            </div>
+
+                            <div class="form-group mr-2">
+                                <button class="btn btn-primary" (click)="ExportToExcel()" [disabled]="!Export">
+                                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                    Export to Excel
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <table *ngIf="ShowTable" class="table table-hover" #TABLE #table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Invoice No.</th>
+                                    <th scope="col">Vendor</th>
+                                    <th scope="col">Particulars</th>
+                                    <th scope="col">Product Name </th>
+
+                                    <th scop="col">Quantity</th>
+                                    <th scop="col">Unit Price</th>
+                                    <th scop="col">Total Amount</th>
+                                    <th scope="col">Gross Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tbody *ngFor="let item of pagedItems of VendorLedger.Details; let i = index">
+                             
+
+                                    <!-- <td>{{i+1}}</td>
+                                    <td>{{item.Date}}</td>
+                                    <td>{{item.InvoiceNumber}}</td>
+                                    <td>{{item.Vendor}}</td>
+                                    <td>{{item.Particulars}}</td>
+                                    <td>{{item.Product.Name}}</td>
+                                    <td>{{item.Details[0].Quantity}}</td>
+                                    <td>{{item.Details[0].UnitPrice}}</td>
+                                    <td>{{item.Details[0].Total}}</td>
+                                    <td>{{item.GrossTotal}}</td> -->
+                                    <td>{{i+1}}</td>
+                                    <td>{{item.Date}}</td>
+                                    <td>{{item.InvoiceNumber}}</td>
+                                    <td>{{item.Vendor}}</td>
+                                    <td>{{item.Particulars}}</td>
+                                    <td>{{item.Details[0].Product.Name}}</td>
+                                    <td>{{item.Details[0].Quantity}}</td>
+                                    <td>{{item.Details[0].UnitPrice}}</td>
+                                    <td>{{item.Details[0].Total}}</td>
+                                    <td>{{item.GrossTotal}}</td>
+
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(1)">First</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                                    <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                                </li>
+                                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                                    <a (click)="setPage(page)">{{page}}</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                                </li>
+                                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                                    <a (click)="setPage(pager.totalPages)">Last</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

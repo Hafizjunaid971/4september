@@ -1,0 +1,39 @@
+/* table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+} */
+
+table {
+    table-layout: fixed;
+    width: 100%;
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* th,
+td {
+    word-wrap: break-word;
+}
+
+thead tr th:first-child,
+tbody tr td:first-child {
+    width: 4em;
+    min-width: 4em;
+    max-width: 4em;
+    word-break: break-all;
+}
+
+thead tr th:last-child,
+tbody tr td:last-child {
+    width: 16em;
+    min-width: 16em;
+    max-width: 16em;
+    word-break: break-all;
+} */

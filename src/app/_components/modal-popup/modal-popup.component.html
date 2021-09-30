@@ -1,0 +1,148 @@
+<mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button style="color: #fff;background-color: #5cb85c;border-color: #4cae4c;" mat-raised-button printSectionId="print-section" ngxPrint>Print Invoice</button>
+        <button style="color: #fff;background-color: #d9534f;border-color: #d43f3a;" mat-raised-button (click)="closeMe()">Close</button>
+    </mat-dialog-actions><br><br>
+
+    <div id="print-section">
+        <h1 mat-dialog-title style="text-align: center;font-family: Arial, Helvetica, sans-serif;">Customer Invoice Details
+        </h1>
+
+        <table class="table" style="color: black;margin-right: auto;width: 100%;border: 1px solid black;border-collapse: collapse;">
+            <col width="120">
+            <col width="40">
+            <col width="40">
+            <col width="120">
+            <col width="40">
+            <thead>
+                <tr>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">Set Up / Shop Name</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Invoice No.</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Invoice Date</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">Area & City
+                    </th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">No of Items
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.Company.CompanyName}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.InvoiceNumber}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.InvoiceDate}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.Company.Address}} & {{data.info.Company.City}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.ProductInventoryList.length}}</td>
+                </tr>
+            </tbody>
+        </table><br>
+
+        <table class="table" style="color: black;margin-right: auto;width: 100%;border: 1px solid black;border-collapse: collapse;">
+            <col width="10">
+            <col width="50">
+            <col width="50">
+            <col width="40">
+            <col width="40">
+            <col width="40">
+            <col width="40">
+            <col width="40">
+            <col width="40">
+            <col width="60">
+            <thead>
+                <tr>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;">#</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Product</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Category</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Variety</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">Size
+                    </th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">
+                        Packing</th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">TP
+                    </th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">Unit Price
+                    </th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">No of Units
+                    </th>
+                    <th style="text-align: center;border: 1px solid black;border-collapse: collapse;" scope="col">Total
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of data.info.ProductInventoryList; let i = index">
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{i+1}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Product}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Category}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Variety}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Size}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Packing}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.TP}}</td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.UnitPrice}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.NoOfUnits}}
+                    </td>
+                    <td style="text-align: center;border: 1px solid black;border-collapse: collapse;">{{item.Total}}
+                    </td>
+                </tr>
+            </tbody>
+        </table><br>
+
+        <table class="table" style="color: black;margin-left: auto;border: 1px solid black;border-collapse: collapse;">
+            <tbody>
+                <tr>
+                    <th scope="col" style="text-align: left;border: 1px solid black;border-collapse: collapse;">Total Amount
+                    </th>
+                    <td style="text-align: right;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.TotalPayment}}</td>
+                </tr>
+                <tr>
+                    <th scope="col" style="text-align: left;border: 1px solid black;border-collapse: collapse;">
+                        Discount(%)</th>
+                    <td style="text-align: right;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.Discount}}</td>
+                </tr>
+                <tr>
+                    <th scope="col" style="text-align: left;border: 1px solid black;border-collapse: collapse;">Discount Amount
+                    </th>
+                    <td style="text-align: right;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.DiscountAmount}}</td>
+                </tr>
+                <tr>
+                    <th scope="col" style="text-align: left;border: 1px solid black;border-collapse: collapse;">Net Amount
+                    </th>
+                    <td style="text-align: right;border: 1px solid black;border-collapse: collapse;">
+                        {{data.info.NetAmount}}</td>
+                </tr>
+            </tbody>
+        </table><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+        <table class="table" style="color: black;margin-right: auto;width: 100%;text-align: center;">
+            <thead>
+                <tr>
+                    <th scope="col">__________________________</th>
+                    <th scope="col">__________________________</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> AUTHORIZER SIGN</td>
+                    <td> DISTRIBUTOR SIGN</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</mat-dialog-content>

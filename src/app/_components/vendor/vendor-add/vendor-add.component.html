@@ -1,0 +1,173 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #VendorAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Vendor</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Add New Vendor</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Vendor</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Vendor</h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" class="form-control input-group-lg" required name="Name" type="text" title="Enter Name" [(ngModel)]="Vendor.Name" placeholder="Enter Name" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Company Name</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="CompanyName" class="form-control input-group-lg" required type="text" title="Enter Company Name" [(ngModel)]="Vendor.CompanyName" placeholder="Enter Company Name" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <!-- <label class="col-sm-2 col-form-label">Phone No.</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Phone" class="form-control input-group-lg" required type="text" title="Enter Phone No." [(ngModel)]="Vendor.Phone" placeholder="Enter Phone No." [readonly]="DeleteMode || ViewMode" appNumbersonly />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Email" class="form-control input-group-lg" type="text" title="Enter Email" [(ngModel)]="Vendor.Email" placeholder="Enter Email" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Address" class="form-control input-group-lg" type="text" title="Enter Address" [(ngModel)]="Vendor.Address" placeholder="Enter Address" [readonly]="DeleteMode || ViewMode" />
+                        </div> -->
+
+                        <!-- <label class="col-sm-2 col-form-label">Vendor Deals In</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="VendorDealsIn" class="form-control input-group-lg" type="text" title="Enter Dealer Name" [(ngModel)]="Vendor.VendorDealsIn" placeholder="Select Dealer name Name" [readonly]="DeleteMode || ViewMode" />
+                        </div> -->
+
+                        <label class="col-sm-4 col-form-label">Select Vendor deals </label>
+                        <div class="col-sm-2">
+                            <ng-select [items]="priceList" name="Product" [disabled]="DeleteMode || ViewMode" bindLabel="Name" [(ngModel)]="Vendor.PriceList" placeholder="Select Product" required="true">
+                            </ng-select>
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Company Phone</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="CompanyPhone" class="form-control input-group-lg" type="text" title="Enter CompanyPhone" [(ngModel)]="Vendor.CompanyPhone" placeholder="Enter Company Phone" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Country</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Country" class="form-control input-group-lg" type="text" title="Enter Country" [(ngModel)]="Vendor.Country" placeholder="Enter Country" [readonly]="DeleteMode || ViewMode" />
+                        </div><label class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="City" class="form-control input-group-lg" type="text" title="Enter City" [(ngModel)]="Vendor.City" placeholder="Enter Company City" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                    </div>
+                    <label class="col-sm-2 col-form-label">Address1</label>
+                    <div class="col-sm-4">
+                        <input autocomplete="off" name="Address1" class="form-control input-group-lg" type="text" title="Enter Address1" [(ngModel)]="Vendor.Address1" placeholder="Enter Address 1" [readonly]="DeleteMode || ViewMode" />
+                    </div>
+                    <label class="col-sm-2 col-form-label">Address 2</label>
+                    <div class="col-sm-4">
+                        <input autocomplete="off" name="Address2" class="form-control input-group-lg" type="text" title="Enter Address2" [(ngModel)]="Vendor.Address2" placeholder="Enter Address 2" [readonly]="DeleteMode || ViewMode" />
+                    </div>
+                    <label class="col-sm-2 col-form-label">Email</label>
+                    <div class="col-sm-4">
+                        <input autocomplete="off" name="EmailAddress" class="form-control input-group-lg" type="text" title="Enter EmailAddress" [(ngModel)]="Vendor.EmailAddress" placeholder="Enter Email Address" [readonly]="DeleteMode || ViewMode" />
+                    </div>
+                    <label class="col-sm-2 col-form-label">Contact Person Name 1</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="ContactPersonName1" required name="ContactPersonName1" class="form-control input-group-lg" type="text" title="Enter ContactPersonName1" [(ngModel)]="Vendor.ContactPersonName1" placeholder="Enter ContactPerson Name 1" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Contact 1</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Contact1" required name="Contact1" class="form-control input-group-lg" type="text" title="Enter Contact1" [(ngModel)]="Vendor.Contact1" placeholder="Enter Contact 1" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Contact Person Name 2</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="ContactPersonName2" required name="ContactPersonName2" class="form-control input-group-lg" type="text" title="Enter ContactPersonName2" [(ngModel)]="Vendor.ContactPersonName2" placeholder="Enter ContactPerson Name 2" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+                        <label class="col-sm-2 col-form-label">Contact 2</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" name="Contact2" required name="Contact2" class="form-control input-group-lg" type="text" title="Enter Contact2" [(ngModel)]="Vendor.Contact2" placeholder="Enter Contact 2" [readonly]="DeleteMode || ViewMode" />
+                        </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="Vendor.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="Vendor.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="Vendor.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="Vendor.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!VendorAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(Vendor)">
+                        <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!VendorAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(Vendor)">
+                        <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                    </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!VendorAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(Vendor)">
+                        <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                    </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                        <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                    </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

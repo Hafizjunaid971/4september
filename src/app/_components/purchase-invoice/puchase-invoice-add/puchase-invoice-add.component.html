@@ -1,0 +1,166 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-sm-12">
+        <form #PurchaseInvoiceAddForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Purchase Invoice</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate New Purchase Invoice</h3>
+                    </div>
+                    <div *ngIf="EditMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-pencil-square-o"></i> Edit Purchase Invoice</h3>
+                    </div>
+                    <div *ngIf="DeleteMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-trash-o"></i> Delete Purchase Invoice</h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">Date</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" theme="dp-material" [disabled]="DeleteMode || ViewMode" [dpDayPicker]="config" class="form-control" name="Date" type="text" [(ngModel)]="PurchaseInvoice.Date" placeholder="Select Date" required="true" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Invoice Number</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="InvoiceNumber" [disabled]="DeleteMode || ViewMode" class="form-control input-group-lg" required type="text" title="Invoice Number" [(ngModel)]="PurchaseInvoice.InvoiceNumber" placeholder="Enter Invoice Number" required="true"
+                            />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Vendor</label>
+                        <div class="col-sm-2">
+                            <ng-select [items]="vendorList" name="Vendor" [disabled]="DeleteMode || ViewMode" bindLabel="CompanyName" [(ngModel)]="PurchaseInvoice.Vendor" placeholder="Select Vendor" required="true">
+                            </ng-select>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Particulars</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="Particulars" [disabled]="DeleteMode || ViewMode" class="form-control input-group-lg" required type="text" title="Particulars" [(ngModel)]="PurchaseInvoice.Particulars" placeholder="Enter Particulars" required="true" />
+                        </div>
+
+                        <label class="col-sm-2 col-form-label">Gross Total</label>
+                        <div class="col-sm-2">
+                            <input autocomplete="off" name="GrossTotal" class="form-control input-group-lg" required type="text" title="Gross Total" [(ngModel)]="PurchaseInvoice.GrossTotal" placeholder="Enter Gross Total" required="true" readonly />
+                        </div>
+
+                        <div class="col-sm-1">
+                            <button [disabled]="DeleteMode || ViewMode" class="btn btn-success" (click)="AddDetails()">
+                                <i class="fa fa-plus" style="color: #fff;"></i> Add More Detail(s)</button>
+                        </div>
+
+                        <div class="table-responsive-sm margin-top-25">
+                            <table id="myTable" class="table css-serial" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th scope="col">Item Name</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Unit Price</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of PurchaseInvoice.Details; let i = index">
+                                        <td></td>
+                                        <td><input (change)="ValidateItemName(item,i)" autocomplete="off" class="form-control" required [name]="'ItemName_'+i" type="text" title="Item Name" id="item.ItemName" [(ngModel)]="item.ItemName" placeholder="Enter Item Name"
+                                                [readonly]="DeleteMode || ViewMode" />
+                                        </td>
+                                        <td><input autocomplete="off" class="form-control" required (change)=CalculateTotal(item) [name]="'Quantity_'+i" type="text" title="Quantity" id="item.Quantity" [(ngModel)]="item.Quantity" placeholder="Enter Quantity"
+                                                [readonly]="DeleteMode || ViewMode" appNumbersonly /></td>
+                                        <td><input autocomplete="off" class="form-control" required (change)=CalculateTotal(item) [name]="'UnitPrice_'+i" type="text" title="Unit Price" id="item.UnitPrice" [(ngModel)]="item.UnitPrice" placeholder="Enter Unit Price"
+                                                [readonly]="DeleteMode || ViewMode" appNumbersWithTwoDecimals />
+                                        </td>
+                                        <td><input autocomplete="off" class="form-control" required [name]="'Total_'+i" type="text" title="Total" id="item.Total" [(ngModel)]="item.Total" placeholder="Enter Total" readonly />
+                                        </td>
+                                        <td *ngIf="AddMode">
+                                            <span> <i class="fa fa-trash-o delete"
+                                                    (click)="RemoveDetails(item,i)"></i></span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="PurchaseInvoice.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="PurchaseInvoice.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedBy" type="text" title="Modified By" [(ngModel)]="PurchaseInvoice.ModifiedBy" placeholder="Modified By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Modified Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="ModifiedDate" type="text" title="Modified Date" [(ngModel)]="PurchaseInvoice.ModifiedDate" placeholder="Modified Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!PurchaseInvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Save(PurchaseInvoice)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="EditMode">
+                            <button type="button" [disabled]="!PurchaseInvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Update(PurchaseInvoice)">
+                                <i class="fa fa-refresh" style="color: #fff;"></i> Update
+                            </button>
+                        </div>
+
+                        <div class="mr-2" *ngIf="DeleteMode">
+                            <button type="button" [disabled]="!PurchaseInvoiceAddForm.valid" class="btn btn-primary btn-lg" (click)="Delete(PurchaseInvoice)">
+                                <i class="fa fa-trash-o" style="color: #fff;"></i> Delete
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

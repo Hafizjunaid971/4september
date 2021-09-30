@@ -1,0 +1,190 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+
+    <div class="col-xs-12">
+        <form #ReturnInvoiceForm="ngForm">
+            <div class="main-body">
+                <div class="sub-body">
+
+                    <div *ngIf="ViewMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-eye"></i> View Return Invoice</h3>
+                    </div>
+                    <div *ngIf="AddMode" class="main-heading">
+                        <h3 class="main-heading-title"><i class="fa heading-icon fa-address-book"></i> Generate Return Invoice
+                        </h3>
+                    </div>
+
+                    <div class="form-group margin-top-30">
+
+                        <label class="col-sm-2 col-form-label">Invoice Number</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" [disabled]="ViewMode" required class="form-control input-group-lg" required name="InvoiceNumber" placeholder="Enter Invoice Number" type="text" [(ngModel)]="ReturnInvoice.InvoiceNumber" />
+                        </div>
+
+                        <div class="col-sm-4">
+                            <button [disabled]="ViewMode" class="btn btn-primary" (click)="GetInvoiceData()">
+                                <i class="fa fa-get-pocket" style="color: #fff;"></i> Fetch Invoice</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <label class="col-sm-2 col-form-label">Remarks</label>
+                        <div class="col-sm-4">
+                            <input autocomplete="off" [disabled]="ViewMode" class="form-control input-group-lg" required placeholder="Enter Remarks" name="Remarks" type="text" [(ngModel)]="ReturnInvoice.Remarks" />
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div *ngIf="ShowData">
+                            <div class="card">
+                                <div class="card-header">Invoice Details</div>
+                                <div class="card-body">
+
+                                    <label class="col-sm-2 col-form-label">Invoice Date</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" name="InvoiceDate" type="text" [(ngModel)]="ReturnInvoice.InvoiceDate" disabled="true" />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Company</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" name="Company" type="text" [(ngModel)]="ReturnInvoice.Company" disabled="true" />
+                                    </div>
+
+                                    <div class="table-responsive-sm">
+                                        <table class="table css-serial" style="margin-top: 30px;">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th scope="col">Product</th>
+                                                    <th scope="col">Code</th>
+                                                    <th scope="col">Category</th>
+                                                    <th scope="col">Packing</th>
+                                                    <th scope="col">TP</th>
+                                                    <th scope="col">In Inventory</th>
+                                                    <th scope="col">No. of Units</th>
+                                                    <th scope="col">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let item of ReturnInvoice.ProductInventoryList; let i = index">
+                                                    <td></td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.Product" type="text" [(ngModel)]="item.Product" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.Code" type="text" [(ngModel)]="item.Code" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.Category" type="text" [(ngModel)]="item.Category" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.Packing" type="text" [(ngModel)]="item.Packing" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.TP" type="text" [(ngModel)]="item.TP" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.InInventory" type="text" [(ngModel)]="item.InInventory" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.NoOfUnits" type="text" [(ngModel)]="item.NoOfUnits" disabled="true" />
+                                                    </td>
+                                                    <td>
+                                                        <input autocomplete="off" class="form-control input-group-lg" name="item.Total" type="text" [(ngModel)]="item.Total" disabled="true" />
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Total Payment</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" required name="TotalPayment" type="text" [title]="ReturnInvoice.TotalPayment" [(ngModel)]="ReturnInvoice.TotalPayment" disabled="true" placeholder="Total Payment" appNumbersWithTwoDecimals
+                                        />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Discount (%)</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" (change)="CalculateNetAmount(Invoiceem)" required name="Discount" type="text" [title]="ReturnInvoice.Discount" disabled="true" [(ngModel)]="ReturnInvoice.Discount" placeholder="Discount(%)"
+                                            appNumbersWithTwoDecimals />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Discount Amount</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" required name="DiscountAmount" type="text" [title]="ReturnInvoice.DiscountAmount" [(ngModel)]="ReturnInvoice.DiscountAmount" placeholder="Discount Amount" appNumbersWithTwoDecimals disabled="true"
+                                        />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Net Amount</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" required name="NetAmount" type="text" [title]="ReturnInvoice.NetAmount" [(ngModel)]="ReturnInvoice.NetAmount" disabled="true" placeholder="Net Amount" appNumbersWithTwoDecimals />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Payment Done</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" required name="PaymentDone" type="text" [title]="ReturnInvoice.PaymentDone" [(ngModel)]="ReturnInvoice.PaymentDone" placeholder="Payment Done" disabled="true" appNumbersWithTwoDecimals />
+                                    </div>
+
+                                    <label class="col-sm-2 col-form-label">Payment Due</label>
+                                    <div class="col-sm-4">
+                                        <input autocomplete="off" class="form-control input-group-lg" required name="PaymentDue" type="text" [title]="ReturnInvoice.PaymentDue" [(ngModel)]="ReturnInvoice.PaymentDue" placeholder="Payment Due" appNumbersWithTwoDecimals disabled="true" />
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audit Log -->
+
+                    <div *ngIf="!AddMode" class="margin-top-30">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Audit Log
+                                    </mat-panel-title>
+                                </mat-expansion-panel-header>
+
+                                <div class="form-group margin-top-25">
+                                    <label class="col-sm-1 col-form-label">Created By</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedBy" type="text" title="Created By" [(ngModel)]="ReturnInvoice.CreatedBy" placeholder="Created By" />
+                                    </div>
+
+                                    <label class="col-sm-1 col-form-label">Created Date</label>
+                                    <div class="col-sm-2">
+                                        <input autocomplete="off" class="form-control" readonly name="CreatedDate" type="text" title="Created Date" [(ngModel)]="ReturnInvoice.CreatedDate" placeholder="Created Date" />
+                                    </div>
+
+                                </div>
+
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="form-group row">
+                        <div class="mr-2" *ngIf="AddMode">
+                            <button type="button" [disabled]="!ReturnInvoiceForm.valid" class="btn btn-primary btn-lg" (click)="Save(ReturnInvoice)">
+                                <i class="fa fa-floppy-o" style="color: #fff;"></i> Save
+                            </button>
+                        </div>
+
+                        <div class="mr-2">
+                            <button type="button" class="btn btn-primary btn-lg" (click)="Back()">
+                                <i class="fa fa-arrow-left" style="color: #fff;"></i> Back
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="square-spin">
+    <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

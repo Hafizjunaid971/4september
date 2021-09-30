@@ -1,0 +1,87 @@
+<app-sidenav></app-sidenav>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="main-body">
+            <div class="sub-body">
+<!--
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId" [(ngModel)]="searchText" name="searchText" placeholder="Search By Invoice Nuber">
+                    </div>
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId2" [(ngModel)]="searchText2" name="searchText2" placeholder="Search By Invoice Date">
+                    </div>
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId3" [(ngModel)]="searchText3" name="searchText3" placeholder="Search By Customer">
+                    </div>
+                    <div class="col-sm-3">
+                        <input autocomplete="off" type="text" class="form-control" id="searchTextId4" [(ngModel)]="searchText4" name="searchText4" placeholder="Search By TotalPayment">
+                    </div>
+                </div> -->
+
+                <div class="main-heading">
+                    <h3 class="main-heading-title"><i class="fa fa-list-alt heading-icon"></i> Customer Invoice List</h3>
+                </div>
+
+                <div class="table-responsive-sm margin-top-25">
+                    <table id="myTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th scope="col">Customer</th>
+                                <th scope="col">Comapny</th>
+                                <th scope="col">Invoice No.</th>
+                                <th scope="col">Invoice Date</th>
+                                <th scope="col">Total Payment</th>
+                                <th scope="col">Discount</th>
+                                <th scope="col">Net Amount</th>
+                                <th scope="col">Payment Done</th>
+                                <th scope="col">Payment Due</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pagedItems; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.Company.Name}}</td>
+                                <td>{{item.Company.CompanyName}}</td>
+                                <td>{{item.InvoiceNumber}}</td>
+                                <td>{{item.InvoiceDate}}</td>
+                                <td>{{item.TotalPayment}}</td>
+                                <td>{{item.Discount}}</td>
+                                <td>{{item.NetAmount}}</td>
+                                <td>{{item.PaymentDone}}</td>
+                                <td>{{item.PaymentDue}}</td>
+                                <td>
+                                    <i class="fa fa-eye view" (click)="View(item)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- pager -->
+                <div class="text-center">
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(1)">First</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === 1}">
+                            <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+                        </li>
+                        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                            <a (click)="setPage(page)">{{page}}</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.currentPage + 1)">Next</a>
+                        </li>
+                        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                            <a (click)="setPage(pager.totalPages)">Last</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
